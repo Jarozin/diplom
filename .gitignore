@@ -1,0 +1,15 @@
+*.aux
+*.toc
+*.xml
+*.gz
+*.bbl
+*.bcf
+*.blg
+*.fdb*
+*.fls
+*.log
+*.out
+resourses/Ларичев_О_И_Теория_и_методы_принятия_решений,_а_также_Хроника_событий.doc
+resourses/Черноморов_Г_А_Теория_принятия_решений.pdf
+research/04-analysis.tex
+research/inc/img/idef0.drawio
