@@ -13,7 +13,7 @@
 
 \chapter{Технологический раздел}
 
-\section{Выбор средств программной реализации}
+\section{Выбор средств разработки}
 
 Для реализации метода поддержки принятия решений в рамках выполнения пошаговой инструкции, заданной в графовом формате, был выбран Python~\cite{python} по следующим причинам:
 \begin{itemize}
@@ -32,10 +32,16 @@
     \item \textbf{Matplotlib}: для отрисовки графа инструкций, размещения узлов и подписей, связей и легенды. 
 \end{itemize}
 
-\section{Разработка программного обеспечения}
+В качестве среды разработки был выбран Visual Studio Code~\cite{vscode} по следующим причинам:
+\begin{itemize}
+    \item данный редактор позволяет удобно управлять всеми файлами проекта;
+    \item наличие расширений, позволяющих работать с множеством форматов файлов и языков;
+    \item наличие опыта работы с данном редактором;
+\end{itemize}
+
+\section{Реализация программного обеспечения}
 
 \subsection{Общая архитектура}
-
 
 % TODO: добавить схему компонентов программы
 Программная система реализована в виде набора модулей (рисунок \ref{fig:components}), каждый из которых отвечает за определённую функциональность:
@@ -49,6 +55,45 @@
     \item \texttt{debug\_mode.py} --- класс \texttt{DebugMode}, предоставляющий интерфейс для экспертной настройки весов и оценок;
     \item \texttt{main.py} --- точка входа, организующая диалог с пользователем, выбор профиля экспертности, загрузку графа и вызов соответствующих режимов.
 \end{itemize}
+
+% TODO: нужно добавить листинги 
+% Пример от сверстника:
+
+% \subsubsection{Функция классификации сегмента} % classify segment
+% Входные данные:
+% \begin{itemize}
+%     \item state --- целое число, текущее состояние конечного автомата;
+%     \item sd --- структура SegmentData, содержащая накопленную информацию о текущем сегменте;
+%     \item raw --- флаг использования первичной разметки.
+% \end{itemize}
+
+% Выходные данные: Целое число, уточненный класс сегмента в терминах уточненной разметки.
+
+% Исходный код данной функции приведен в листинге~\ref{lst:cs} ниже.
+
+% \begin{lstlisting}[caption={Функция классификации сегмента}, label={lst:cs}]
+% def classify_segment(state: int, sd: SegmentData, raw: bool = False):
+%     handlers = {
+%         State.UNDEFINED: handle_undefined,
+%         State.BACKGROUND: handle_background,
+%         State.FEW_TEXT: handle_few_text,
+%         State.MANY_TEXT: handle_many_text,
+%         State.COLOR: handle_color,
+%         State.MEDIUM_BLACK_LINE: handle_medium_black_line,
+%         State.LONG_BLACK_LINE: handle_long_black_line,
+%     }
+
+%     handler = handlers.get(state)
+%     assert handler is not None
+
+%     if raw:
+%         return StateNames[state]
+
+%     return handler(sd)
+% \end{lstlisting}
+
+% Исходный код для функций уточнения класса сегмента handle\_undefined, handle\_background, handle\_few\_text, handle\_many\_text, handle\_color, handle\_medium\_black\_line, handle\_long\_black\_line приведен в листингах \ref{lst:hundef} -- \ref{lst:hlbl} приложения А.
+
 
 \subsection{Реализация ключевых алгоритмов}
 
