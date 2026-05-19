@@ -1,0 +1,86 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Page-1" id="JRLYgv8-DhAjhyAv3QqL">
+    <mxGraphModel dx="880" dy="663" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ttEv-xaWiTlDASsTwidC-17" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="300" y="30" width="440" height="550" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-12" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="320" y="60" width="350" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-15" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="330" y="230" width="350" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ttEv-xaWiTlDASsTwidC-1" target="ttEv-xaWiTlDASsTwidC-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-1" value="&lt;font face=&quot;Times New Roman&quot;&gt;Пользователь&lt;/font&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="200" y="275" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-6" value="&lt;font face=&quot;Times New Roman&quot;&gt;Пользовательский интерфейс&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="350" y="250" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-7" value="&lt;font face=&quot;Times New Roman&quot;&gt;Механизм логического вывода&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="520" y="250" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-8" value="&lt;font face=&quot;Times New Roman&quot;&gt;База знаний&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="520" y="400" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-9" value="&lt;font face=&quot;Times New Roman&quot;&gt;База моделей&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="520" y="100" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-14" value="&lt;font face=&quot;Times New Roman&quot;&gt;СППР, ориентированные на модели&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="400" y="70" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-16" value="&lt;font face=&quot;Times New Roman&quot;&gt;СППР, ориентированные на знания&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="420" y="510" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-18" value="&lt;font face=&quot;Times New Roman&quot;&gt;Гибридные СППР&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="620" y="550" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-21" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="ttEv-xaWiTlDASsTwidC-6" target="ttEv-xaWiTlDASsTwidC-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="390" as="sourcePoint" />
+            <mxPoint x="470" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-22" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="ttEv-xaWiTlDASsTwidC-7" target="ttEv-xaWiTlDASsTwidC-6" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="310" as="sourcePoint" />
+            <mxPoint x="580" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-23" value="&lt;font face=&quot;Times New Roman&quot;&gt;Запросы&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="460" y="250" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-24" value="&lt;font face=&quot;Times New Roman&quot;&gt;Ответы&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="460" y="305" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-25" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="ttEv-xaWiTlDASsTwidC-8" target="ttEv-xaWiTlDASsTwidC-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="780" y="440" as="sourcePoint" />
+            <mxPoint x="830" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-26" value="Данные&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; background-color: rgb(236, 236, 236);&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%D0%97%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D1%8B%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22460%22%20y%3D%22250%22%20width%3D%2260%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ttEv-xaWiTlDASsTwidC-25" vertex="1" connectable="0">
+          <mxGeometry x="0.1095" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-27" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="ttEv-xaWiTlDASsTwidC-7" target="ttEv-xaWiTlDASsTwidC-9" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="630" y="390" as="sourcePoint" />
+            <mxPoint x="630" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ttEv-xaWiTlDASsTwidC-28" value="Данные&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; background-color: rgb(236, 236, 236);&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%D0%97%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D1%8B%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22460%22%20y%3D%22250%22%20width%3D%2260%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ttEv-xaWiTlDASsTwidC-27" vertex="1" connectable="0">
+          <mxGeometry x="0.1095" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
