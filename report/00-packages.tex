@@ -6,6 +6,7 @@
 \usepackage{rotating}
 \usepackage{graphicx} % для resizebox
 
+
 \usepackage{tabularx}
 %\usepackage{cmap} % Улучшенный поиск русских слов в полученном pdf-файле
 %\usepackage[T2A]{fontenc} % Поддержка русских букв
@@ -13,7 +14,14 @@
 
 \usepackage{pdfpages}
 \usepackage{float}
-\setlist[enumerate,1]{label={\arabic*})}
+
+% \usepackage[T2A]{fontenc}
+% \usepackage[utf8]{inputenc}
+% \usepackage[russian]{babel}
+% \usepackage{enumitem}
+
+\setlist[enumerate,1]{label={\arabic*)}}
+\setlist[enumerate,2]{label={\arabic{enumi}.\arabic{enumii})}}
 \setlist[itemize]{label=--}
 
 \usepackage[inkscapeformat=png]{svg}
