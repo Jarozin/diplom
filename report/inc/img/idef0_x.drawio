@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
   <diagram name="Page-1" id="Lkzv8DMN4P9q6xOMYv2D">
-    <mxGraphModel dx="607" dy="1557" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="503" dy="379" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -55,39 +55,40 @@
         <mxCell id="GmrSimiH4zrvX0Esml0S-14" value="&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Графовое описание инструкции&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="20" y="140" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="GmrSimiH4zrvX0Esml0S-15" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" target="GmrSimiH4zrvX0Esml0S-4" edge="1">
+        <mxCell id="GmrSimiH4zrvX0Esml0S-15" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="30" y="243" as="sourcePoint" />
-            <mxPoint x="160" y="350" as="targetPoint" />
+            <mxPoint x="30" y="230" as="sourcePoint" />
+            <mxPoint x="290" y="230" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="GmrSimiH4zrvX0Esml0S-17" value="Формальное описание действий пользователя" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="90" y="250" width="150" height="30" as="geometry" />
+          <mxGeometry x="90" y="230" width="150" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="GmrSimiH4zrvX0Esml0S-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" target="GmrSimiH4zrvX0Esml0S-1" edge="1">
+        <mxCell id="GmrSimiH4zrvX0Esml0S-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="128" y="60" as="sourcePoint" />
-            <mxPoint x="340" y="410" as="targetPoint" />
+            <mxPoint x="110.5" y="60" as="sourcePoint" />
+            <mxPoint x="110" y="150.00000000000023" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="GmrSimiH4zrvX0Esml0S-19" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" target="GmrSimiH4zrvX0Esml0S-1" edge="1">
+        <mxCell id="GmrSimiH4zrvX0Esml0S-19" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="183" y="60" as="sourcePoint" />
-            <mxPoint x="180" y="150" as="targetPoint" />
+            <mxPoint x="200.5" y="60" as="sourcePoint" />
+            <mxPoint x="200" y="150.00000000000023" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="GmrSimiH4zrvX0Esml0S-20" value="Графовый формат" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="60" y="60" width="60" height="30" as="geometry" />
+          <mxGeometry x="210" y="60" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="GmrSimiH4zrvX0Esml0S-21" value="Домен" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="190" y="60" width="60" height="30" as="geometry" />
+          <mxGeometry x="150" y="60" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="2XX49C-S3_KmeQE-ElYL-1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="GmrSimiH4zrvX0Esml0S-4">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="130" y="90" as="sourcePoint" />
+            <mxPoint x="200" y="90" as="sourcePoint" />
             <mxPoint x="300" y="380" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="130" y="110" />
+              <mxPoint x="200" y="90" />
+              <mxPoint x="200" y="110" />
               <mxPoint x="345" y="110" />
             </Array>
           </mxGeometry>
@@ -99,16 +100,16 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="2XX49C-S3_KmeQE-ElYL-3" value="Возможные уровни экспертизы операторов" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="125" y="10" width="60" height="30" as="geometry" />
+          <mxGeometry x="30" y="80" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="2XX49C-S3_KmeQE-ElYL-4" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="150" y="360" as="sourcePoint" />
-            <mxPoint x="280" y="260" as="targetPoint" />
+            <mxPoint x="30" y="260" as="sourcePoint" />
+            <mxPoint x="290" y="259.43" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="2XX49C-S3_KmeQE-ElYL-5" value="уровень экспертизы оператора" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="140" y="320" width="60" height="30" as="geometry" />
+          <mxGeometry x="50" y="260" width="220" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
