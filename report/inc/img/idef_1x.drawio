@@ -13,7 +13,7 @@
         <mxCell id="cIqloBiC0lxArWpdc-n2-3" value="Определить метки" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-1">
           <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-4" value="А2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-1">
+        <mxCell id="cIqloBiC0lxArWpdc-n2-4" value="А12" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-1">
           <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
         </mxCell>
         <mxCell id="cIqloBiC0lxArWpdc-n2-5" value="" style="group" vertex="1" connectable="0" parent="1">
@@ -25,7 +25,7 @@
         <mxCell id="cIqloBiC0lxArWpdc-n2-7" value="Определить критерии" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-5">
           <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-8" value="А1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-5">
+        <mxCell id="cIqloBiC0lxArWpdc-n2-8" value="А11" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-5">
           <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
         </mxCell>
         <mxCell id="cIqloBiC0lxArWpdc-n2-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="cIqloBiC0lxArWpdc-n2-6" target="cIqloBiC0lxArWpdc-n2-2">
@@ -52,7 +52,7 @@
         <mxCell id="cIqloBiC0lxArWpdc-n2-13" value="Метки" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="-460" y="-950" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-14" value="&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Графовое описание инструкции&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="cIqloBiC0lxArWpdc-n2-14" value="&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Набор графовых описаний инструкций&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="-840" y="-980" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="cIqloBiC0lxArWpdc-n2-17" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="cIqloBiC0lxArWpdc-n2-6">
@@ -82,7 +82,7 @@
         <mxCell id="cIqloBiC0lxArWpdc-n2-23" value="Добавить рекомендации к меткам" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-21">
           <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-24" value="А2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-21">
+        <mxCell id="cIqloBiC0lxArWpdc-n2-24" value="А13" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-21">
           <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
         </mxCell>
         <mxCell id="cIqloBiC0lxArWpdc-n2-25" value="" style="group" vertex="1" connectable="0" parent="1">
@@ -94,7 +94,7 @@
         <mxCell id="cIqloBiC0lxArWpdc-n2-27" value="Добавить приоритеты" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-25">
           <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-28" value="А2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-25">
+        <mxCell id="cIqloBiC0lxArWpdc-n2-28" value="А14" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-25">
           <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
         </mxCell>
         <mxCell id="cIqloBiC0lxArWpdc-n2-29" value="" style="group" vertex="1" connectable="0" parent="1">
@@ -106,7 +106,7 @@
         <mxCell id="cIqloBiC0lxArWpdc-n2-31" value="Добавить аварийные ситуации к меткам" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-29">
           <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-32" value="А2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-29">
+        <mxCell id="cIqloBiC0lxArWpdc-n2-32" value="А15" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-29">
           <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
         </mxCell>
         <mxCell id="cIqloBiC0lxArWpdc-n2-33" value="" style="group" vertex="1" connectable="0" parent="1">
@@ -115,10 +115,10 @@
         <mxCell id="cIqloBiC0lxArWpdc-n2-34" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-33">
           <mxGeometry width="110" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-35" value="Добавить графы аварийных ситуаций" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-33">
-          <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
+        <mxCell id="cIqloBiC0lxArWpdc-n2-35" value="Добавить наборы графовых описаний аварийных ситуаций" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-33">
+          <mxGeometry x="10" y="20" width="90" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cIqloBiC0lxArWpdc-n2-36" value="А2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-33">
+        <mxCell id="cIqloBiC0lxArWpdc-n2-36" value="А16" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIqloBiC0lxArWpdc-n2-33">
           <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
         </mxCell>
         <mxCell id="cIqloBiC0lxArWpdc-n2-37" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="cIqloBiC0lxArWpdc-n2-2">
@@ -174,6 +174,18 @@
             <mxPoint x="-90" y="-650" as="sourcePoint" />
             <mxPoint x="-130" y="-840" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="cIqloBiC0lxArWpdc-n2-48" value="Возможные аварийные ситуации" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-315" y="-800" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cIqloBiC0lxArWpdc-n2-55" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-570" y="-810" as="sourcePoint" />
+            <mxPoint x="-570" y="-720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cIqloBiC0lxArWpdc-n2-56" value="Возможные уровни экспертизы операторов" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-650" y="-810" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

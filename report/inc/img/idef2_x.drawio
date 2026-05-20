@@ -10,7 +10,7 @@
         <mxCell id="LRSaVLsLbjZF3WpdvYuX-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="LRSaVLsLbjZF3WpdvYuX-1">
           <mxGeometry width="110" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="LRSaVLsLbjZF3WpdvYuX-3" value="Вывод возможныъ действий" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="LRSaVLsLbjZF3WpdvYuX-1">
+        <mxCell id="LRSaVLsLbjZF3WpdvYuX-3" value="Вывод возможных действий" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="LRSaVLsLbjZF3WpdvYuX-1">
           <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="LRSaVLsLbjZF3WpdvYuX-4" value="А22" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="LRSaVLsLbjZF3WpdvYuX-1">
