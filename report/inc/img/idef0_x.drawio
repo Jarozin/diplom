@@ -1,0 +1,98 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Page-1" id="Lkzv8DMN4P9q6xOMYv2D">
+    <mxGraphModel dx="607" dy="457" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GmrSimiH4zrvX0Esml0S-7" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="290" y="190" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="GmrSimiH4zrvX0Esml0S-7" vertex="1">
+          <mxGeometry width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-5" value="Сопровождение оператора" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="GmrSimiH4zrvX0Esml0S-7" vertex="1">
+          <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-6" value="А2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="GmrSimiH4zrvX0Esml0S-7" vertex="1">
+          <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-8" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="100" y="150" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="GmrSimiH4zrvX0Esml0S-8" vertex="1">
+          <mxGeometry width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-2" value="Подготовка данных экспертом" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="GmrSimiH4zrvX0Esml0S-8" vertex="1">
+          <mxGeometry x="25" y="20" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-3" value="А1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="GmrSimiH4zrvX0Esml0S-8" vertex="1">
+          <mxGeometry x="80" y="50" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="GmrSimiH4zrvX0Esml0S-1" target="GmrSimiH4zrvX0Esml0S-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="380" as="sourcePoint" />
+            <mxPoint x="370" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-10" value="Подготовленные данные" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="230" y="150" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-11" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="GmrSimiH4zrvX0Esml0S-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="30" y="185" as="sourcePoint" />
+            <mxPoint x="350" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="GmrSimiH4zrvX0Esml0S-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="340" as="sourcePoint" />
+            <mxPoint x="480" y="225" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-13" value="Рекомендации" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="420" y="190" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-14" value="&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Графовое описание инструкции&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="20" y="140" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-15" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" target="GmrSimiH4zrvX0Esml0S-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="30" y="243" as="sourcePoint" />
+            <mxPoint x="160" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-17" value="Формальное описание действий пользователя" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="90" y="250" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" target="GmrSimiH4zrvX0Esml0S-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="128" y="60" as="sourcePoint" />
+            <mxPoint x="340" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-19" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" target="GmrSimiH4zrvX0Esml0S-1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="183" y="60" as="sourcePoint" />
+            <mxPoint x="180" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-20" value="Графовый формат" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="60" y="60" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GmrSimiH4zrvX0Esml0S-21" value="Домен" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="190" y="60" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="2XX49C-S3_KmeQE-ElYL-1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="GmrSimiH4zrvX0Esml0S-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="90" as="sourcePoint" />
+            <mxPoint x="300" y="380" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="130" y="110" />
+              <mxPoint x="345" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

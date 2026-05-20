@@ -39,10 +39,6 @@
     \item наличие опыта работы с данном редактором;
 \end{itemize}
 
-\section{Реализация программного обеспечения}
-
-\subsection{Общая архитектура}
-
 Для хранения информации о графах, весах критериев и метках был выбран формат файлов JSON~\cite{json} по следующим причинам:
 \begin{itemize}
     \item отсутствие привязки к конкретному языку программирования;
@@ -50,7 +46,10 @@
     \item частое использование на практике;
     \item широкая поддержка со стороны разработчиков.
 \end{itemize}
+\section{Реализация программного обеспечения}
 
+\subsection{Разделение на модули}
+z
 % TODO: добавить схему компонентов программы
 Программная система реализована в виде набора модулей (рисунок \ref{fig:components}), каждый из которых отвечает за определённую функциональность:
 \begin{itemize}
@@ -61,6 +60,7 @@
     \item \texttt{visualization.py} --- функция \texttt{visualize\_graph}, строящая графическое представление графа инструкций;
     \item \texttt{emergency.py} --- класс \texttt{EmergencyHandler}, отвечающий за загрузку, фильтрацию и выполнение аварийных сценариев;
     \item \texttt{debug\_mode.py} --- класс \texttt{DebugMode}, предоставляющий интерфейс для экспертной настройки весов и оценок;
+    \item \texttt{ahp\_full.py} --- содержит два класса: \texttt{FullAHP} (полный МАИ) и \texttt{HierarchicalAHP} (модифицированный МАИ);
     \item \texttt{main.py} --- точка входа, организующая диалог с пользователем, выбор профиля экспертности, загрузку графа и вызов соответствующих режимов.
 \end{itemize}
 
@@ -104,51 +104,142 @@
 
 
 \subsection{Реализация ключевых алгоритмов}
+\subsubsection{Функция загрузки графа инструкций} % load_graph
+Входные данные:
+\begin{itemize}
+\item json\_file --- строка, путь к JSON-файлу, содержащему описание графа (состояния, действия, переходы, объекты);
+\item label\_manager --- объект класса \texttt{LabelManager}, используемый для сопоставления действий с метками.
+\end{itemize}
 
-\subsubsection{Метод анализа иерархий (МАИ) для критериев}
+Выходные данные: объект класса \texttt{InstructionGraph}, заполненный состояниями, действиями и переходами из JSON-файла.
 
-Реализован в классе \texttt{AHPMethod}. 
-Основные этапы описаны далее.
+Исходный код метода \texttt{from\_json} приведён в листинге~\ref{lst:loadgraph}.
 
-\begin{enumerate}
-    \item Создание матрицы парных сравнений по словарю, где ключ --- кортеж из двух критериев, значение --- число по шкале Саати. 
-    Матрица строится как квадратная, с единицами на диагонали и взаимно обратными элементами \(a_{ji} = 1/a_{ij}\).
-    \item Вычисление весов через геометрическое среднее: для каждой строки \(i\) 
-    \[
-    g_i = \left( \prod_{j=1}^{n} a_{ij} \right)^{1/nс и лег},
-    \]
-    затем \(w_i = g_i / \sum_{k=1}^{n} g_k\). 
-    В коде используется \texttt{np.prod} и возведение в степень \(1/n\).
-    \item Вычисление \(\lambda_{\max}\) как среднего арифметического \((Aw)_i / w_i\), где \(Aw\) --- произведение матрицы на вектор весов.
-    \item Индекс согласованности \(CI = (\lambda_{\max} - n)/(n-1)\), отношение согласованности \(CR = CI/RI\), где \(RI\) --- случайный индекс для размера \(n\) (таблица Саати).
-    \item Если \(CR < 0.1\), матрица считается согласованной; иначе выводится предупреждение.
-\end{enumerate}
+\begin{lstlisting}[caption={Загрузка графа из JSON}, label={lst:loadgraph}]
+def from_json(cls, json_file: str, label_manager=None):
+with open(json_file, 'r', encoding='utf-8') as f:
+data = json.load(f)
+graph = cls(data.get('name', 'InstructionGraph'), label_manager)
+for obj_data in data.get('objects', []):
+graph.add_object(Object(...))
+for state_data in data.get('states', []):
+graph.add_state(State(...))
+for action_data in data.get('actions', []):
+graph.add_action(Action(...))
+for trans_data in data.get('transitions', []):
+graph.add_transition(trans_data['from'], trans_data['action'], trans_data['to'])
+return graph
+\end{lstlisting}
 
-\subsubsection{Ранжирование рекомендаций}
+\subsubsection{Функция выполнения действия в пошаговом режиме} % execute_action
+Входные данные:
+\begin{itemize}
+\item action\_id --- строка, идентификатор действия, выбранного пользователем;
+\item recommendations --- список словарей, содержащих рекомендации, показанные пользователю (каждый словарь имеет поля \texttt{text} и \texttt{score});
+\item silent --- булевый флаг, подавляющий вывод сообщений.
+\end{itemize}
 
-Класс \texttt{AHPRecommendationRanker} для каждого действия собирает все рекомендации из меток, вычисляет для каждой рекомендации взвешенную сумму:
-\[
-S(r) = \sum_{c \in \text{criteria}} w_c \cdot s_{r,c},
-\]
-где \(s_{r,c}\) --- оценка рекомендации по критерию \(c\) (из конфигурации). Затем производится нормализация:
-\[
-\tilde{S}(r) = \frac{S(r)}{\sum_{r'} S(r')}
-\]
-и сортировка по убыванию. 
-Возвращаются первые три элемента с их нормализованными оценками.
+Выходные данные: булево значение \texttt{True}, если действие успешно выполнено (переход в новое состояние), иначе \texttt{False}.
 
-\subsubsection{Обработка аварийных ситуаций}
+Метод \texttt{execute\_action} класса \texttt{InstructionGraph} реализован в листинге~\ref{lst:execute}.
 
-Класс \texttt{EmergencyHandler} загружает из файла \texttt{emergency\_scenarios.json} список сценариев, каждый из которых содержит поля: \texttt{file} (имя файла графа), \texttt{description}, \texttt{return\_to\_original} (флаг), \texttt{tags} (список меток). 
-При отказе пользователя выполнить действие метод \texttt{get\_emergency\_scenarios\_for\_action} вычисляет пересечение меток сценариев с ключевыми словами меток действия. 
-Пользователю предлагается выбрать сценарий, после чего загружается соответствующий граф и запускается его выполнение через рекурсивный вызов \texttt{run\_emergency\_scenario}. 
-Глубина рекурсии ограничена тремя уровнями, чтобы избежать бесконечного зацикливания.
+\begin{lstlisting}[caption={Выполнение действия}, label={lst:execute}]
+def execute_action(self, action_id: str, recommendations=None, silent=False):
+if self.current_state_id is None:
+return False
+transition_key = (self.current_state_id, action_id)
+if transition_key not in self.transitions:
+return False
+next_state_id = self.transitions[transition_key]
+old_state = self.current_state_id
+self.current_state_id = next_state_id
+self.execution_history.append(HistoryStep(...))
+if not silent:
+\end{lstlisting}
+% TODO: почему здесь подчеркивает емое
+% print(f"[ВЫПОЛНЕНО] {self.actions[action_id].name}")
+% return True
+
+\subsubsection{Функция ранжирования рекомендаций} % rank_recommendations
+Входные данные:
+\begin{itemize}
+\item recommendations --- список словарей, каждый из которых содержит поле \texttt{scores} (оценки по критериям) и \texttt{text};
+\item top\_n --- целое число, количество лучших рекомендаций, которое требуется вернуть.
+\end{itemize}
+
+Выходные данные: список словарей, каждый из которых содержит поля \texttt{text} (текст рекомендации), \texttt{score} (нормализованная интегральная оценка) и \texttt{rank} (порядковый номер).
+
+Исходный код метода \texttt{rank\_recommendations} класса \texttt{AHPRecommendationRanker} приведён в листинге~\ref{lst:rank}.
+
+\begin{lstlisting}[caption={Ранжирование рекомендаций}, label={lst:rank}]
+def rank_recommendations(self, recommendations, top_n=3):
+raw_scores = [self.calculate_recommendation_score(rec.get('scores', {})) for rec in recommendations]
+total = sum(raw_scores)
+if total > 0:
+norm_scores = [s / total for s in raw_scores]
+else:
+norm_scores = [1.0 / len(recommendations)] * len(recommendations)
+ranked = sorted(zip(recommendations, norm_scores), key=lambda x: x[1], reverse=True)
+return [{'text': rec['text'], 'score': score, 'rank': i+1} for i, (rec, score) in enumerate(ranked[:top_n])]
+\end{lstlisting}
+
+\subsubsection{Функция запуска аварийного сценария} % run_emergency
+Входные данные:
+\begin{itemize}
+\item scenario\_id --- строка, идентификатор аварийного сценария (например, \texttt{spilled\_water});
+\item recursion\_depth --- целое число (по умолчанию 0), текущая глубина вложенности аварийного сценария.
+\end{itemize}
+
+Выходные данные: булево значение \texttt{return\_to\_original}, указывающее, нужно ли вернуться к основному графу после завершения сценария.
+
+Реализация метода \texttt{run\_emergency\_scenario} класса \texttt{EmergencyHandler} представлена в листинге~\ref{lst:emergency}.
+
+\begin{lstlisting}[caption={Выполнение аварийного сценария}, label={lst:emergency}]
+def run_emergency_scenario(self, scenario_id, recursion_depth=0):
+if recursion_depth >= self.max_depth:
+return True
+graph = self.load_emergency_graph(scenario_id)
+if not graph:
+return True
+info = self.scenarios_config[scenario_id]
+self._run_emergency_steps(graph, recursion_depth + 1)
+return info.get('return_to_original', True)
+\end{lstlisting}
+
+\subsubsection{Реализация модифицированного метода МАИ} % collect_leaves
+Входные данные:
+\begin{itemize}
+\item element --- строка, имя текущего элемента (группы или альтернативы);
+\item limit --- целое число, максимальное количество листьев, которое требуется собрать;
+\item depth --- целое число, текущая глубина рекурсии.
+\end{itemize}
+
+Выходные данные: список словарей, каждый из которых содержит поле \texttt{alternative} (имя альтернативы-листа).
+
+Исходный код метода \texttt{\_collect\_leaves} класса \texttt{HierarchicalAHP} приведён в листинге~\ref{lst:collect}.
+
+\begin{lstlisting}[caption={Рекурсивный сбор листьев в групповом МАИ}, label={lst:collect}]
+def _collect_leaves(self, element: str, limit: int, depth: int = 0):
+if element not in self.elements_data:
+return [{'alternative': element, 'priority': 1.0}]
+children = self.elements_data[element]
+if not children:
+return []
+aggregated = self._get_aggregated_weights(element, children)
+sorted_children = sorted(aggregated.items(), key=lambda x: x[1], reverse=True)
+result = []
+for child, _ in sorted_children:
+if len(result) >= limit:
+break
+result.extend(self._collect_leaves(child, limit - len(result), depth + 1))
+return result
+\end{lstlisting}
 
 \subsection{Форматы файлов}
 
 \subsubsection{Файл инструкции (граф)}
 
-Файл \texttt{*.json} имеет следующую структуру:
+Файл графового описания инструкции имеет следующую структуру:
 
 \begin{verbatim}
 {
@@ -180,7 +271,6 @@ S(r) = \sum_{c \in \text{criteria}} w_c \cdot s_{r,c},
 
 Поля \texttt{objects\_state} описывают свойства объектов в каждом состоянии.
 Значения свойств могут быть булевыми, числами или строками. 
-При переходе по действию свойства объектов не изменяются автоматически --- это должно быть отражено в описании различных состояний.
 
 \subsubsection{Файл меток и критериев}
 
@@ -326,7 +416,11 @@ S(r) = \sum_{c \in \text{criteria}} w_c \cdot s_{r,c},
 
 \section{Тестирование программного обеспечения}
 
-\subsection{Модульное тестирование}
+\subsection*{Функциональное тестирование}
+
+Все тесты, описанные в конструкторском разделе пройдены успешно.
+
+\subsection*{Модульное тестирование}
 
 Для проверки корректности работы отдельных модулей была разработана система модульных тестов с использованием встроенного модуля \texttt{unittest}. 
 Тесты охватывают следующие компоненты:
@@ -373,4 +467,4 @@ S(r) = \sum_{c \in \text{criteria}} w_c \cdot s_{r,c},
 В данном разделе был обоснован выбор средств разработок.
 Описана архитектура программной системы, форматы входных и выходных файлов.
 Представлены результаты тестирования, подтверждающие корректность работы всех компонентов.
-Разработанное ПО может быть легко адаптировано для новых предметных областей путём добавления соответствующих графов инструкций, меток и аварийных сценариев.…
+Разработанное ПО может быть легко адаптировано для новых предметных областей путём добавления соответствующих графов инструкций, меток и аварийных сценариев.
