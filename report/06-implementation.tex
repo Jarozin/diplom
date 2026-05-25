@@ -1,16 +1,3 @@
-% NOTE:
-% Технологический раздел содержит обоснованный выбор средств программной реализации, описание основных (нетривиальных) моментов разработки и методики тестирования созданного ПО
-% В этом же разделе описывается информация, необходимая для сборки и запуска разработанного ПО, форматы входных, выходных и конфигурационных файлов (если они имеются), а также интерфейс пользователя и руководство пользователя
-% Часть технологического раздела должна быть посвящена тестированию разработанного ПО
-% Модульное тестирование описывается в технологическом разделе
-% Системное тестирование может быть описано в технологическом или исследовательском разделах
-
-% Рек. Объем 20-25 страниц
-
-% Обосновать выбор средств программной реализации. 
-% Разработать программное обеспечение, реализующее представленный метод, и выполнить его тестированиие. 
-% Описать взаимодействие пользователя с программным обеспечением.
-
 \chapter{Технологический раздел}
 
 \section{Выбор средств разработки}
@@ -46,69 +33,61 @@
     \item частое использование на практике;
     \item широкая поддержка со стороны разработчиков.
 \end{itemize}
+
 \section{Реализация программного обеспечения}
 
-\subsection{Разделение на модули}
+\subsection{Разбиение на модули}
 
-% TODO: добавить схему компонентов программы(или не добавлять, так то элемент 1)
-Программная система реализована в виде набора модулей (рисунок \ref{fig:components}), каждый из которых отвечает за определённую функциональность:
+Программная система реализована в виде набора модулей, каждый из которых отвечает за определённую функциональность.
+
 \begin{itemize}
-    \item \texttt{models.py} --- содержит классы данных, описывающие предметную область (состояния, действия, объекты, метки, шаги истории);
-    \item \texttt{graph.py} --- класс \texttt{InstructionGraph}, реализующий загрузку графа из JSON, проверку переходов, выполнение действий и управление историей;
-    \item \texttt{labels.py} --- класс \texttt{LabelManager}, обеспечивающий загрузку меток из конфигурационного файла, сопоставление действий с метками по ключевым словам и предоставление рекомендаций;
-    \item \texttt{ahp\_method.py} --- классы \texttt{AHPMethod} (реализация полного МАИ для критериев) и \texttt{AHPRecommendationRanker} (ранжирование рекомендаций);
-    \item \texttt{visualization.py} --- функция \texttt{visualize\_graph}, строящая графическое представление графа инструкций;
-    \item \texttt{emergency.py} --- класс \texttt{EmergencyHandler}, отвечающий за загрузку, фильтрацию и выполнение аварийных сценариев;
-    \item \texttt{debug\_mode.py} --- класс \texttt{DebugMode}, предоставляющий интерфейс для экспертной настройки весов и оценок;
-    \item \texttt{ahp\_full.py} --- содержит два класса: \texttt{FullAHP} (полный МАИ) и \texttt{HierarchicalAHP} (модифицированный МАИ);
-    \item \texttt{main.py} --- точка входа, организующая диалог с пользователем, выбор профиля экспертности, загрузку графа и вызов соответствующих режимов.
+    \item \texttt{models.py} --- содержит классы данных, описывающие предметную область: \texttt{StateType} (типы состояний), \texttt{Object} (объекты и субъекты), \texttt{State} (состояния), \texttt{Action} (действия), \texttt{Label} (метки), \texttt{HistoryStep} (шаги истории). Все классы используют \texttt{@dataclass} для автоматической генерации конструкторов и методов сравнения.
+
+    \item \texttt{graph.py} --- класс \texttt{InstructionGraph}, реализующий загрузку графа из JSON, проверку переходов, выполнение действий, управление историей и вывод текстового представления графа.
+
+    \item \texttt{labels.py} --- класс \texttt{LabelManager}, обеспечивающий загрузку меток из конфигурационного файла, сопоставление действий с метками по ключевым словам (с кэшированием) и предоставление рекомендаций через \texttt{AHPRecommendationRanker}.
+
+    \item \texttt{ahp\_method.py} --- класс \texttt{AHPMethod} (реализация полного МАИ для критериев: матрица парных сравнений, вычисление весов через геометрическое среднее, проверка согласованности) и класс \texttt{AHPRecommendationRanker} (ранжирование рекомендаций на основе весов критериев с последующей нормализацией).
+
+    \item \texttt{visualization.py} --- функция \texttt{visualize\_graph}, строящая графическое представление графа инструкций с помощью Matplotlib и NetworkX.
+
+    \item \texttt{emergency.py} --- класс \texttt{EmergencyHandler}, отвечающий за загрузку, фильтрацию (по пересечению тегов с ключевыми словами меток действия) и выполнение аварийных сценариев с поддержкой рекурсии.
+
+    \item \texttt{debug\_mode.py} --- класс \texttt{DebugMode}, предоставляющий интерфейс для экспертной настройки весов и оценок, а также логирование изменений.
+
+    \item \texttt{ahp\_full.py} --- содержит два класса для исследовательских целей: \texttt{FullAHP} (полный МАИ с попарным сравнением всех альтернатив) и \texttt{HierarchicalAHP} (модифицированный МАИ с рекурсивным жадным отбором на основе группировки).
+
+    \item \texttt{main.py} --- точка входа, организующая диалог с пользователем, выбор уровня экспертизы, загрузку графа и вызов соответствующих режимов.
 \end{itemize}
 
-% TODO: нужно добавить листинги 
-% Пример от сверстника:
-
-% \subsubsection{Функция классификации сегмента} % classify segment
-% Входные данные:
-% \begin{itemize}
-%     \item state --- целое число, текущее состояние конечного автомата;
-%     \item sd --- структура SegmentData, содержащая накопленную информацию о текущем сегменте;
-%     \item raw --- флаг использования первичной разметки.
-% \end{itemize}
-
-% Выходные данные: Целое число, уточненный класс сегмента в терминах уточненной разметки.
-
-% Исходный код данной функции приведен в листинге~\ref{lst:cs} ниже.
-
-% \begin{lstlisting}[caption={Функция классификации сегмента}, label={lst:cs}]
-% def classify_segment(state: int, sd: SegmentData, raw: bool = False):
-%     handlers = {
-%         State.UNDEFINED: handle_undefined,
-%         State.BACKGROUND: handle_background,
-%         State.FEW_TEXT: handle_few_text,
-%         State.MANY_TEXT: handle_many_text,
-%         State.COLOR: handle_color,
-%         State.MEDIUM_BLACK_LINE: handle_medium_black_line,
-%         State.LONG_BLACK_LINE: handle_long_black_line,
-%     }
-
-%     handler = handlers.get(state)
-%     assert handler is not None
-
-%     if raw:
-%         return StateNames[state]
-
-%     return handler(sd)
-% \end{lstlisting}
-
-% Исходный код для функций уточнения класса сегмента handle\_undefined, handle\_background, handle\_few\_text, handle\_many\_text, handle\_color, handle\_medium\_black\_line, handle\_long\_black\_line приведен в листингах \ref{lst:hundef} -- \ref{lst:hlbl} приложения А.
-
-
 \subsection{Реализация ключевых алгоритмов}
-\subsubsection{Функция загрузки графа инструкций} % load_graph
+
+\subsubsection{Алгоритм выбора уровня экспертизы}
+
+Данный алгоритм реализован в функции \texttt{change\_profile} модуля \texttt{main.py}, а также при начальной загрузке программы. 
+
+Входные данные: выбор пользователя (1, 2 или 3) в интерактивном меню.
+
+Выходные данные: объект \texttt{LabelManager} с загруженным профилем и пересчитанными весами критериев.
+
+Исходный код функции \texttt{change\_profile} приведён в листинге~\ref{lst:change_profile}.
+
+\begin{lstlisting}[caption={Фрагмент функции смены уровня экспертизы}, label={lst:change_profile}]
+    def change_profile(label_manager, choice):
+        profile_map = {'1':'new', '2':'experienced', '3':'expert'}
+        new_profile = profile_map.get(choice, 'experienced')
+        labels_cfg = os.path.join(BASE_DIR, "labels_config.json")
+        ahp_cfg = os.path.join(BASE_DIR, "ahp_criteria_config.json")
+        new_lm = LabelManager(labels_cfg, ahp_cfg, profile=new_profile)
+        return new_lm
+\end{lstlisting}
+
+\subsubsection{Функция загрузки графа инструкций}
+
 Входные данные:
 \begin{itemize}
-\item json\_file --- строка, путь к JSON-файлу, содержащему описание графа (состояния, действия, переходы, объекты);
-\item label\_manager --- объект класса \texttt{LabelManager}, используемый для сопоставления действий с метками.
+    \item json\_file --- строка, путь к JSON-файлу, содержащему описание графа (состояния, действия, переходы, объекты);
+    \item label\_manager --- объект класса \texttt{LabelManager}, используемый для сопоставления действий с метками.
 \end{itemize}
 
 Выходные данные: объект класса \texttt{InstructionGraph}, заполненный состояниями, действиями и переходами из JSON-файла.
@@ -117,26 +96,42 @@
 
 \begin{lstlisting}[caption={Загрузка графа из JSON}, label={lst:loadgraph}]
 def from_json(cls, json_file: str, label_manager=None):
-with open(json_file, 'r', encoding='utf-8') as f:
-data = json.load(f)
-graph = cls(data.get('name', 'InstructionGraph'), label_manager)
-for obj_data in data.get('objects', []):
-graph.add_object(Object(...))
-for state_data in data.get('states', []):
-graph.add_state(State(...))
-for action_data in data.get('actions', []):
-graph.add_action(Action(...))
-for trans_data in data.get('transitions', []):
-graph.add_transition(trans_data['from'], trans_data['action'], trans_data['to'])
-return graph
+    with open(json_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    graph = cls(data.get('name', 'InstructionGraph'), label_manager)
+    for obj_data in data.get('objects', []):
+        graph.add_object(Object(
+            name=obj_data['name'],
+            obj_type=obj_data.get('type', 'object'),
+            properties={}
+        ))
+    for state_data in data.get('states', []):
+        graph.add_state(State(
+            id=state_data['id'],
+            name=state_data['name'],
+            description=state_data.get('description', ''),
+            state_type=StateType.from_string(state_data.get('type', 'intermediate')),
+            objects_state=state_data.get('objects_state', {})
+        ))
+    for action_data in data.get('actions', []):
+        graph.add_action(Action(
+            id=action_data['id'],
+            name=action_data['name'],
+            description=action_data.get('description', ''),
+            required_objects=set(action_data.get('required_objects', []))
+        ))
+    for trans_data in data.get('transitions', []):
+        graph.add_transition(trans_data['from'], trans_data['action'], trans_data['to'])
+    return graph
 \end{lstlisting}
 
-\subsubsection{Функция выполнения действия в пошаговом режиме} % execute_action
+\subsubsection{Функция выполнения действия в пошаговом режиме}
+
 Входные данные:
 \begin{itemize}
-\item action\_id --- строка, идентификатор действия, выбранного пользователем;
-\item recommendations --- список словарей, содержащих рекомендации, показанные пользователю (каждый словарь имеет поля \texttt{text} и \texttt{score});
-\item silent --- булевый флаг, подавляющий вывод сообщений.
+    \item action\_id --- строка, идентификатор действия, выбранного пользователем;
+    \item recommendations --- список словарей, содержащих рекомендации, показанные пользователю (каждый словарь имеет поля \texttt{text} и \texttt{score});
+    \item silent --- булевый флаг, подавляющий вывод сообщений.
 \end{itemize}
 
 Выходные данные: булево значение \texttt{True}, если действие успешно выполнено (переход в новое состояние), иначе \texttt{False}.
@@ -145,26 +140,35 @@ return graph
 
 \begin{lstlisting}[caption={Выполнение действия}, label={lst:execute}]
 def execute_action(self, action_id: str, recommendations=None, silent=False):
-if self.current_state_id is None:
-return False
-transition_key = (self.current_state_id, action_id)
-if transition_key not in self.transitions:
-return False
-next_state_id = self.transitions[transition_key]
-old_state = self.current_state_id
-self.current_state_id = next_state_id
-self.execution_history.append(HistoryStep(...))
-if not silent:
+    if self.current_state_id is None:
+        return False
+    transition_key = (self.current_state_id, action_id)
+    if transition_key not in self.transitions:
+        return False
+    next_state_id = self.transitions[transition_key]
+    old_state = self.current_state_id
+    old_state_name = self.states[old_state].name
+    self.current_state_id = next_state_id
+    new_state_name = self.states[self.current_state_id].name
+    history_step = HistoryStep(
+        from_state=old_state,
+        from_state_name=old_state_name,
+        action_id=action_id,
+        action_name=self.actions[action_id].name,
+        to_state=self.current_state_id,
+        to_state_name=new_state_name,
+        recommendations=recommendations or []
+    )
+    self.execution_history.append(history_step)
+    return True
 \end{lstlisting}
-% TODO: почему здесь подчеркивает емое
-% print(f"[ВЫПОЛНЕНО] {self.actions[action_id].name}")
-% return True
 
-\subsubsection{Функция ранжирования рекомендаций} % rank_recommendations
+\subsubsection{Функция ранжирования рекомендаций}
+
 Входные данные:
 \begin{itemize}
-\item recommendations --- список словарей, каждый из которых содержит поле \texttt{scores} (оценки по критериям) и \texttt{text};
-\item top\_n --- целое число, количество лучших рекомендаций, которое требуется вернуть.
+    \item recommendations --- список словарей, каждый из которых содержит поле \texttt{scores} (оценки по критериям) и \texttt{text};
+    \item top\_n --- целое число, количество лучших рекомендаций, которое требуется вернуть.
 \end{itemize}
 
 Выходные данные: список словарей, каждый из которых содержит поля \texttt{text} (текст рекомендации), \texttt{score} (нормализованная интегральная оценка) и \texttt{rank} (порядковый номер).
@@ -173,21 +177,22 @@ if not silent:
 
 \begin{lstlisting}[caption={Ранжирование рекомендаций}, label={lst:rank}]
 def rank_recommendations(self, recommendations, top_n=3):
-raw_scores = [self.calculate_recommendation_score(rec.get('scores', {})) for rec in recommendations]
-total = sum(raw_scores)
-if total > 0:
-norm_scores = [s / total for s in raw_scores]
-else:
-norm_scores = [1.0 / len(recommendations)] * len(recommendations)
-ranked = sorted(zip(recommendations, norm_scores), key=lambda x: x[1], reverse=True)
-return [{'text': rec['text'], 'score': score, 'rank': i+1} for i, (rec, score) in enumerate(ranked[:top_n])]
+    raw_scores = [self.calculate_recommendation_score(rec.get('scores', {})) for rec in recommendations]
+    total = sum(raw_scores)
+    if total > 0:
+        norm_scores = [s / total for s in raw_scores]
+    else:
+        norm_scores = [1.0 / len(recommendations)] * len(recommendations)
+    ranked = sorted(zip(recommendations, norm_scores), key=lambda x: x[1], reverse=True)
+    return [{'text': rec['text'], 'score': score, 'rank': i+1} for i, (rec, score) in enumerate(ranked[:top_n])]
 \end{lstlisting}
 
-\subsubsection{Функция запуска аварийного сценария} % run_emergency
+\subsubsection{Функция запуска аварийного сценария}
+
 Входные данные:
 \begin{itemize}
-\item scenario\_id --- строка, идентификатор аварийного сценария (например, \texttt{spilled\_water});
-\item recursion\_depth --- целое число (по умолчанию 0), текущая глубина вложенности аварийного сценария.
+    \item scenario\_id --- строка, идентификатор аварийного сценария (например, \texttt{spilled\_water});
+    \item recursion\_depth --- целое число (по умолчанию 0), текущая глубина вложенности аварийного сценария.
 \end{itemize}
 
 Выходные данные: булево значение \texttt{return\_to\_original}, указывающее, нужно ли вернуться к основному графу после завершения сценария.
@@ -196,43 +201,44 @@ return [{'text': rec['text'], 'score': score, 'rank': i+1} for i, (rec, score) i
 
 \begin{lstlisting}[caption={Выполнение аварийного сценария}, label={lst:emergency}]
 def run_emergency_scenario(self, scenario_id, recursion_depth=0):
-if recursion_depth >= self.max_depth:
-return True
-graph = self.load_emergency_graph(scenario_id)
-if not graph:
-return True
-info = self.scenarios_config[scenario_id]
-self._run_emergency_steps(graph, recursion_depth + 1)
-return info.get('return_to_original', True)
+    if recursion_depth >= self.max_depth:
+        return True
+    graph = self.load_emergency_graph(scenario_id)
+    if not graph:
+        return True
+    info = self.scenarios_config[scenario_id]
+    self._run_emergency_steps(graph, recursion_depth + 1)
+    return info.get('return_to_original', True)
 \end{lstlisting}
 
-\subsubsection{Реализация модифицированного метода МАИ} % collect_leaves
+\subsubsection{Реализация модифицированного метода МАИ}
+
 Входные данные:
 \begin{itemize}
-\item element --- строка, имя текущего элемента (группы или альтернативы);
-\item limit --- целое число, максимальное количество листьев, которое требуется собрать;
-\item depth --- целое число, текущая глубина рекурсии.
+    \item element --- строка, имя текущего элемента (группы или альтернативы);
+    \item limit --- целое число, максимальное количество листьев, которое требуется собрать;
+    \item depth --- целое число, текущая глубина рекурсии.
 \end{itemize}
 
-Выходные данные: список словарей, каждый из которых содержит поле \texttt{alternative} (имя альтернативы-листа).
+Выходные данные: список словарей, каждый из которых содержит поле \texttt{alternative}.
 
 Исходный код метода \texttt{\_collect\_leaves} класса \texttt{HierarchicalAHP} приведён в листинге~\ref{lst:collect}.
 
-\begin{lstlisting}[caption={Рекурсивный сбор листьев в групповом МАИ}, label={lst:collect}]
+\begin{lstlisting}[caption={Рекурсивный сбор лучших рекомендаций в групповом МАИ}, label={lst:collect}]
 def _collect_leaves(self, element: str, limit: int, depth: int = 0):
-if element not in self.elements_data:
-return [{'alternative': element, 'priority': 1.0}]
-children = self.elements_data[element]
-if not children:
-return []
-aggregated = self._get_aggregated_weights(element, children)
-sorted_children = sorted(aggregated.items(), key=lambda x: x[1], reverse=True)
-result = []
-for child, _ in sorted_children:
-if len(result) >= limit:
-break
-result.extend(self._collect_leaves(child, limit - len(result), depth + 1))
-return result
+    if element not in self.elements_data:
+        return [{'alternative': element, 'priority': 1.0}]
+    children = self.elements_data[element]
+    if not children:
+        return []
+    aggregated = self._get_aggregated_weights(element, children)
+    sorted_children = sorted(aggregated.items(), key=lambda x: x[1], reverse=True)
+    result = []
+    for child, _ in sorted_children:
+        if len(result) >= limit:
+            break
+        result.extend(self._collect_leaves(child, limit - len(result), depth + 1))
+    return result
 \end{lstlisting}
 
 \subsection{Формат используемых файлов}
@@ -240,7 +246,6 @@ return result
 \subsubsection{Файл графа инструкции}
 
 Файл графового описания инструкции имеет следующую структуру:
-
 
 \begin{verbatim}
 {
@@ -271,17 +276,12 @@ return result
 \end{verbatim}
 
 Поля \texttt{objects\_state} описывают свойства объектов в каждом состоянии.
-Значения свойств могут быть булевыми, числами или строками. 
+Значения свойств могут быть булевыми, числами или строками.
 
 \subsubsection{Файл меток и рекомендаций}
 
-Файл \texttt{labels\_config.json} содержит две основные секции.
-
-\begin{itemize}
-    \item \texttt{criteria} --- список локальных приоритетов рекомендации с именами (безопасность, полезность, актуальность, срочность, критичность).
-    \item \texttt{labels} --- массив меток, каждая из которых имеет имя, список ключевых слов и массив рекомендаций.
-    Каждая рекомендация содержит текст и оценки по каждому критерию в виде словаря \texttt{scores}.
-\end{itemize}
+Файл \texttt{labels\_config.json} содержит массив меток, каждая из которых имеет имя, список ключевых слов и массив рекомендаций.
+Каждая рекомендация содержит текст и оценки по каждому критерию в виде словаря \texttt{scores}.
 
 Пример фрагмента:
 
@@ -294,7 +294,7 @@ return result
       "recommendations": [
         {
           "text": "Используйте фильтрованную воду",
-          "scores": {"безопасность": 0.8, "полезность": 0.7, ...}
+          "scores": {"безопасность": 0.8, "полезность": 0.7}
         }
       ]
     }
@@ -302,7 +302,7 @@ return result
 }
 \end{verbatim}
 
-\subsubsection{Файл критериев МАИ с профилями}
+\subsubsection{Файл критериев МАИ с профилями экспертизы}
 
 Файл \texttt{ahp\_criteria\_config.json} содержит список критериев и три профиля (новичок, опытный, эксперт). 
 Для каждого профиля задаются парные сравнения критериев в виде словаря \texttt{pairwise\_comparisons}, где ключи имеют вид \texttt{критерий1\_vs\_критерий2}. 
@@ -325,9 +325,10 @@ return result
 \end{verbatim}
 
 \section{Описание взаимодействия пользователя с программой}
-\subsubsection{Выбор уровня экспертности}
 
-После запуска пользователю предлагается выбрать один из трёх профилей:
+\subsection{Выбор уровня экспертизы}
+
+После запуска пользователю предлагается выбрать один из трёх уровней экспертизы:
 
 \begin{enumerate}
     \item \textbf{Новичок} --- максимальный приоритет безопасности.
@@ -335,45 +336,67 @@ return result
     \item \textbf{Эксперт} --- приоритет критичности и полезности.
 \end{enumerate}
 
-Выбор профиля влияет на веса критериев, используемые при ранжировании рекомендаций.
+Выбор уровня влияет на веса критериев, используемые при ранжировании рекомендаций.
 
-\subsubsection{Главное меню}
+\subsection{Главное меню}
 
 После загрузки графа отображается главное меню:
 
 \begin{verbatim}
-1. Пошаговый режим
-2. Информация о графе
-3. Визуализация
-4. Все метки
-5. Веса критериев
-6. Режим дебага
-7. Загрузить другой граф
-8. Сбросить состояние
-9. Сменить уровень экспертности
-0. Выход
+   1. Пошаговый режим
+   2. Информация о графе
+   3. Визуализация
+   4. Все метки
+   5. Веса критериев
+   6. Режим отладки
+   7. Загрузить другой граф
+   8. Сбросить состояние
+   9. Сменить уровень экспертности
+   10. Сравнение методов МАИ на исследовательском файле
+   0. Выход
 \end{verbatim}
 
-\subsubsection{Пошаговый режим}
+Описание пунктов меню представлены далее.
+\begin{itemize}
+\item \textbf{1. Пошаговый режим} --- запуск интерактивного выполнения инструкции.
+\item \textbf{2. Информация о графе} --- вывод статистики (количество состояний, действий, объектов, переходов) и текущего состояния графа.
+\item \textbf{3. Визуализация} --- построение графического изображения графа (сохраняется в PNG-файл и отображается на экране).
+\item \textbf{4. Все метки} --- вывод всех загруженных меток с их ключевыми словами и рекомендациями.
+\item \textbf{5. Веса критериев} --- отображение текущих весов критериев, вычисленных методом МАИ, а также отношения согласованности (CR).
+\item \textbf{6. Режим дебага} --- вход в режим экспертной настройки (доступен только для экспертов).
+\item \textbf{7. Загрузить другой граф} --- позволяет выбрать новый JSON-файл инструкции без перезапуска программы.
+\item \textbf{8. Сбросить состояние} --- возвращает граф в начальное состояние (очищает историю и сбрасывает текущее состояние).
+\item \textbf{9. Сменить уровень экспертизы} --- изменить текущий профиль (пересчитать веса критериев).
+\item \textbf{10. Сравнение методов МАИ на исследовательском файле} --- запуск сравнительного анализа классического полного МАИ и модифицированного группового МАИ на специальном исследовательском файле. Пользователю предлагается выбрать JSON-файл из папки \texttt{research/}. Программа последовательно выполняет оба метода на выбранном наборе альтернатив, выводя:
+\begin{itemize}
+\item количество выполненных парных сравнений для каждого метода;
+\item количество групп (для модифицированного метода);
+\item 5 лучших альтернативы (ранжированный список) для каждого метода.
+\end{itemize}
+Данный пункт предназначен для исследовательских целей и позволяет наглядно сравнить эффективность двух подходов: классического (полное попарное сравнение всех альтернатив) и модифицированного (иерархическая группировка с рекурсивным отбором).
+\item \textbf{0. Выход} --- завершение работы программы.
+\end{itemize}
+
+\subsection{Пошаговый режим}
 
 При выборе пункта 1 запускается интерактивное выполнение инструкции. На каждом шаге отображается:
 
 \begin{itemize}
-    \item текущее состояние и его описание;
-    \item состояние объектов (только свойства со значением \texttt{true});
-    \item список доступных действий с номерами и следующими состояниями;
-    \item для каждого действия --- перечень меток, к которым оно относится.
+\item текущее состояние и его описание;
+\item состояние объектов (только свойства со значением \texttt{true});
+\item список доступных действий с номерами и следующими состояниями;
+\item для каждого действия --- перечень меток, к которым оно относится.
 \end{itemize}
 
 Пользователь может ввести номер действия для его выполнения, либо команду:
 
 \begin{itemize}
-    \item \texttt{0} --- завершить пошаговый режим и сохранить результаты;
-    \item \texttt{i} --- показать подробную информацию о действии (описание, требуемые объекты, топ-5 рекомендаций);
-    \item \texttt{a} --- показать текущие веса критериев;
-    \item \texttt{q} --- показать историю выполненных шагов;
-    \item \texttt{s} --- показать статистику;
-    \item \texttt{v} --- визуализировать граф.
+\item \texttt{0} --- завершить пошаговый режим и сохранить результаты;
+\item \texttt{i} --- показать подробную информацию о действии (описание, требуемые объекты, 5 лучших рекомендаций);
+\item \texttt{a} --- показать текущие веса критериев;
+\item \texttt{q} --- показать историю выполненных шагов;
+\item \texttt{s} --- показать статистику;
+\item \texttt{v} --- визуализировать граф.
 \end{itemize}
 
 При выборе действия система выводит 3 лучших рекомендации (текст и нормализованную оценку) и запрашивает подтверждение.
@@ -382,92 +405,128 @@ return result
 При утвердительном ответе предлагается список контекстно-зависимых аварийных сценариев, из которых пользователь может выбрать один.
 Затем загружается и выполняется аварийный граф, после чего (в зависимости от флага сценария) либо возврат к основному графу, либо выход в главное меню.
 
-\subsubsection{Режим отладки}
+\subsection{Режим отладки}
 
 Пункт 6 главного меню открывает режим для эксперта, в котором доступны следующие опции:
 
 \begin{itemize}
-    \item просмотр текущих весов критериев;
-    \item изменение весов через ввод парных сравнений (по шкале Саати);
-    \item просмотр всех действий и их рекомендаций с оценками;
-    \item изменение оценок рекомендаций по каждому критерию;
-    \item пошаговое выполнение с отладочной информацией (вывод весов, вклада каждого критерия, детализированных оценок рекомендаций);
-    \item история изменений;
-    \item сохранение изменений в новые файлы (в папку \texttt{debug}) с привязкой к текущему профилю;
-    \item сброс к оригинальным настройкам.
+\item просмотр текущих весов критериев;
+\item изменение весов через ввод парных сравнений (по шкале Саати);
+\item просмотр всех действий и их рекомендаций с оценками;
+\item изменение оценок рекомендаций по каждому критерию;
+\item пошаговое выполнение с отладочной информацией (вывод весов, вклада каждого критерия, детализированных оценок рекомендаций);
+\item история изменений;
+\item сохранение изменений в новые файлы (в папку \texttt{debug}) с привязкой к текущему профилю;
+\item сброс к оригинальным настройкам.
 \end{itemize}
 
-Изменения в режиме отладки не влияют на исходные конфигурационные файлы, а сохраняются отдельно (с меткой времени и именем профиля). 
+Изменения в режиме отладки не влияют на исходные конфигурационные файлы, а сохраняются отдельно (с меткой времени и именем профиля).
 При следующем запуске эти файлы не загружаются автоматически, но могут быть использованы для замены исходных при необходимости.
 
-\subsubsection{Визуализация графа}
+\subsection{Визуализация графа}
 
-Пункт 3 вызывает функцию \texttt{visualize\_graph}, которая строит графическое представление графа с помощью Matplotlib.
-Узлы располагаются по слоям: состояния --- в центре, действия --- слева, объекты и субъекты --- справа. 
+Пункт 3 вызывает функцию \texttt{visualize\_graph}, которая строит графическое представление графа с помощью Matplotlib и NetworkX.
+Узлы располагаются по слоям: состояния --- в центре, действия --- слева, объекты и субъекты --- справа.
 Легенда поясняет цвета и типы линий.
 
-\subsubsection{Сохранение результатов}
+\subsection{Сравнение методов МАИ на исследовательском файле}
+
+Пункт 10 главного меню предназначен для исследовательских целей и позволяет провести сравнительный анализ двух реализаций метода анализа иерархий: классического полного МАИ (класс \texttt{FullAHP}) и модифицированного группового МАИ (класс \texttt{HierarchicalAHP}).
+
+При выборе этого пункта программа сканирует папку \texttt{research/} и предлагает пользователю выбрать JSON-файл для анализа. Файл должен содержать:
+\begin{itemize}
+\item список критериев и их парные сравнения;
+\item для классического метода --- поле \texttt{alternatives} (список всех альтернатив) и \texttt{comparisons\_by\_criterion} (попарные сравнения альтернатив по каждому критерию);
+\item для модифицированного метода --- поле \texttt{hierarchy} (иерархия групп), \texttt{elements\_data} (состав групп) и \texttt{comparisons} (парные сравнения для каждого контейнера).
+\end{itemize}
+
+После выбора файла программа последовательно выполняет оба метода и выводит результаты.
+
+\begin{enumerate}
+\item \textbf{Классический МАИ}:
+\begin{itemize}
+\item количество выполненных парных сравнений (сумма сравнений критериев и всех альтернатив по каждому критерию);
+\item 5 лучших альтернатив с их глобальными приоритетами.
+\end{itemize}
+\item \textbf{Модифицированный МАИ}:
+\begin{itemize}
+\item количество выполненных парных сравнений (сумма сравнений критериев, сравнений групп и сравнений внутри групп);
+\item количество групп в иерархии;
+\item 5 лучших альтернатив (порядок определяется жадным рекурсивным обходом).
+\end{itemize}
+\end{enumerate}
+
+Этот режим позволяет наглядно сравнить следующее:
+\begin{itemize}
+\item объём экспертной работы (количество попарных сравнений), требуемый для каждого метода;
+\item различие в ранжировании альтернатив, вызванное группировкой;
+\item эффективность модификации при большом количестве альтернатив.
+\end{itemize}
+
+Результаты сравнения могут быть сохранены в лог-файлы в папке \texttt{debug/} для последующего анализа.
+
+\subsection{Сохранение результатов}
 
 После завершения пошагового режима (или принудительного выхода) программа автоматически сохраняет файл \texttt{<имя\_графа>\_result.json} в папку \texttt{result/}. Файл содержит:
 
 \begin{itemize}
-    \item \texttt{execution\_history} --- массив шагов с указанием исходного и конечного состояний, выполненного действия и показанных рекомендаций;
-    \item \texttt{total\_steps} --- общее количество выполненных действий;
-    \item \texttt{final\_state\_id} и \texttt{final\_state\_name} --- идентификатор и название конечного состояния;
-    \item \texttt{final\_objects\_state} --- состояние всех объектов в конечном состоянии.
+\item \texttt{execution\_history} --- массив шагов с указанием исходного и конечного состояний, выполненного действия и показанных рекомендаций;
+\item \texttt{total\_steps} --- общее количество выполненных действий;
+\item \texttt{final\_state\_id} и \texttt{final\_state\_name} --- идентификатор и название конечного состояния;
+\item \texttt{final\_objects\_state} --- состояние всех объектов в конечном состоянии.
 \end{itemize}
 
 \section{Тестирование программного обеспечения}
 
-\subsection*{Функциональное тестирование}
+\subsection{Функциональное тестирование}
 
-Все тесты, описанные в конструкторском разделе пройдены успешно.
+Все тесты, описанные в конструкторском разделе, пройдены успешно.
 
-\subsection*{Модульное тестирование}
+\subsection{Модульное тестирование}
 
-Для проверки корректности работы отдельных модулей была разработана система модульных тестов с использованием встроенного модуля \texttt{unittest}. 
+Для проверки корректности работы отдельных модулей была разработана система модульных тестов с использованием встроенного модуля \texttt{unittest}.
 Тесты охватывают следующие компоненты:
 
 \begin{itemize}
-    \item \textbf{Класс \texttt{AHPMethod}}:
-        \begin{itemize}
-            \item тест создания матрицы парных сравнений на основе словаря;
-            \item тест вычисления весов через геометрическое среднее (сравнение с эталонными значениями);
-            \item тест вычисления индекса и отношения согласованности для идеально согласованной матрицы (CR = 0) и для заведомо несогласованной (CR > 0.1);
-        \end{itemize}
-    \item \textbf{Класс \texttt{AHPRecommendationRanker}}:
-        \begin{itemize}
-            \item тест нормализации оценок (сумма нормализованных оценок равна 1);
-            \item тест ранжирования: рекомендация с большей интегральной оценкой должна оказаться выше;
-            \item тест обработки пустого списка рекомендаций.
-        \end{itemize}
-    \item \textbf{Класс \texttt{LabelManager}}:
-        \begin{itemize}
-            \item тест загрузки меток из JSON;
-            \item тест сопоставления действия с метками по ключевым словам (с учётом регистра и подчёркиваний);
-            \item тест получения рекомендаций для действия.
-        \end{itemize}
-    \item \textbf{Класс \texttt{InstructionGraph}}:
-        \begin{itemize}
-            \item тест загрузки графа из JSON;
-            \item тест получения доступных действий (по переходам);
-            \item тест выполнения действия (изменение текущего состояния, запись в историю);
-            \item тест сброса состояния.
-        \end{itemize}
-    \item \textbf{Класс \texttt{EmergencyHandler}}:
-        \begin{itemize}
-            \item тест фильтрации сценариев по тегам;
-            \item тест рекурсивного вызова с ограничением глубины.
-        \end{itemize}
+\item \textbf{Класс \texttt{AHPMethod}}:
+\begin{itemize}
+\item тест создания матрицы парных сравнений на основе словаря;
+\item тест вычисления весов через геометрическое среднее (сравнение с эталонными значениями);
+\item тест вычисления индекса и отношения согласованности для идеально согласованной матрицы (CR = 0) и для заведомо несогласованной (CR > 0.1);
+\end{itemize}
+\item \textbf{Класс \texttt{AHPRecommendationRanker}}:
+\begin{itemize}
+\item тест нормализации оценок (сумма нормализованных оценок равна 1);
+\item тест ранжирования: рекомендация с большей интегральной оценкой должна оказаться выше;
+\item тест обработки пустого списка рекомендаций.
+\end{itemize}
+\item \textbf{Класс \texttt{LabelManager}}:
+\begin{itemize}
+\item тест загрузки меток из JSON;
+\item тест сопоставления действия с метками по ключевым словам (с учётом регистра и подчёркиваний);
+\item тест получения рекомендаций для действия.
+\end{itemize}
+\item \textbf{Класс \texttt{InstructionGraph}}:
+\begin{itemize}
+\item тест загрузки графа из JSON;
+\item тест получения доступных действий (по переходам);
+\item тест выполнения действия (изменение текущего состояния, запись в историю);
+\item тест сброса состояния.
+\end{itemize}
+\item \textbf{Класс \texttt{EmergencyHandler}}:
+\begin{itemize}
+\item тест фильтрации сценариев по тегам;
+\item тест рекурсивного вызова с ограничением глубины.
+\end{itemize}
 \end{itemize}
 
 Каждый тест выполняется изолированно, с использованием временных файлов и фикстур.
-Для проверки арифметических вычислений используются встроенные возможности модуля \texttt{unittest} (методы \texttt{assertAlmostEqual}, \texttt{assertTrue}, \texttt{assertFalse}). 
+Для проверки арифметических вычислений используются встроенные возможности модуля \texttt{unittest} (методы \texttt{assertAlmostEqual}, \texttt{assertTrue}, \texttt{assertFalse}).
 Все модульные тесты успешно проходят, что подтверждает корректность реализации основных алгоритмов.
 
-\section*{Выводы}
+\section{Выводы}
 
-В данном разделе был обоснован выбор средств разработок.
-Описана архитектура программной системы, форматы входных и выходных файлов.
+В данном разделе был обоснован выбор средств разработки.
+Описана структура ПО, форматы входных и выходных файлов.
+Описаны выполненные реализации ключевых алгоритмов.
 Представлены результаты тестирования, подтверждающие корректность работы всех компонентов.
-Разработанное ПО может быть легко адаптировано для новых предметных областей путём добавления соответствующих графов инструкций, меток и аварийных сценариев.
