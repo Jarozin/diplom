@@ -27,15 +27,15 @@
         </mxCell>
         <mxCell id="zyAtpIIExruWfaQMZTej-8" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="210" y="300" as="sourcePoint" />
-            <mxPoint x="340" y="300" as="targetPoint" />
+            <mxPoint x="210" y="280" as="sourcePoint" />
+            <mxPoint x="340" y="280" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="zyAtpIIExruWfaQMZTej-9" value="Графовое описание инструкции" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="240" y="190" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="zyAtpIIExruWfaQMZTej-10" value="Формальное описание действий пользователя" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="240" y="250" width="60" height="30" as="geometry" />
+        <mxCell id="zyAtpIIExruWfaQMZTej-10" value="Формализованное описание действий пользователя" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="220" y="240" width="110" height="30" as="geometry" />
         </mxCell>
         <mxCell id="zyAtpIIExruWfaQMZTej-11" value="Поддержать оператора при выполнении инструкции" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="370" y="250" width="130" height="30" as="geometry" />
@@ -59,30 +59,30 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="x3_6lj19xCUpZvEKn42F-4" value="Графовый формат" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="480" y="120" width="60" height="30" as="geometry" />
+          <mxGeometry x="490" y="120" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="x3_6lj19xCUpZvEKn42F-5" value="Домен" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="380" y="120" width="60" height="30" as="geometry" />
+          <mxGeometry x="390" y="120" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="x3_6lj19xCUpZvEKn42F-6" value="Методы принятия решений" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="450" y="360" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-1" value="уровень экспертизы оператора" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="140" y="300" width="220" height="30" as="geometry" />
+        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-1" value="Уровень экспертизы оператора" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="200" y="280" width="150" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="210" y="324.5" as="sourcePoint" />
             <mxPoint x="340" y="324.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="440.5" y="110" as="sourcePoint" />
             <mxPoint x="440" y="200.00000000000023" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-4" value="Возможные уровни экспертизы операторов" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="1ZqSQ2IHNMZhzSRZaf0Z-4" value="Возможные уровни экспертизы операторов" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="310" y="120" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
