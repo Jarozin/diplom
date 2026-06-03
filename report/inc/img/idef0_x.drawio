@@ -61,7 +61,7 @@
             <mxPoint x="290" y="230" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="GmrSimiH4zrvX0Esml0S-17" value="формализованное описание действий пользователя" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="GmrSimiH4zrvX0Esml0S-17" value="Ф&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;ормализованное описание действий пользователя&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="75" y="230" width="170" height="30" as="geometry" />
         </mxCell>
         <mxCell id="GmrSimiH4zrvX0Esml0S-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1">
@@ -108,8 +108,17 @@
             <mxPoint x="290" y="259.43" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="2XX49C-S3_KmeQE-ElYL-5" value="уровень экспертизы оператора" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="2XX49C-S3_KmeQE-ElYL-5" value="Уровень экспертизы оператора" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="50" y="260" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iZh3kp26wbhsfQCjLY9X-1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="GmrSimiH4zrvX0Esml0S-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="345" y="340" as="sourcePoint" />
+            <mxPoint x="240" y="290.0000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iZh3kp26wbhsfQCjLY9X-2" value="Методы принятия решений" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="290" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
