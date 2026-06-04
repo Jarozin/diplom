@@ -8,12 +8,15 @@
 
 \begin{document}
 	\includepdf[pages=-]{titlepage.pdf}
-	\setcounter{page}{3}
-	\include{ref}
+	\clearpage
+	
+	\include{referat}
+	\clearpage
+	
 	\maketableofcontents
+	\clearpage
 
     \include{00-abstract}
-
     \include{03-introduction}
     \include{04-analysis}
     \include{05-design}
@@ -28,8 +31,8 @@
 	\addcontentsline{toc}{chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}
 	\printbibliography[heading=none]
 	\clearpage
-	\include{09-appendix}
 	\include{appendix-b}
+	\include{09-appendix}
 \end{document}
 
 
