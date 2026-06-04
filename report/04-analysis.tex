@@ -368,15 +368,23 @@
 Матрица является обратно-симметричной, то есть \(a_{ij} = 1/a_{ji}\).
 Диагональные элементы равны 1.
 
-% TODO: переделать с картинки на таблицу
-Пример заполненной матрицы попарных сравнений представлен на рисунке~\ref{fig:comparison_matrix}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{inc/img/mai_comparison.png}
-	\caption{Пример заполненной матрицы попарных сравнений~\cite{larichev}}
-	\label{fig:comparison_matrix}
-\end{figure}
-
+Пример заполненной матрицы попарных сравнений для альтернатив $A$, $B$, $C$ по критерию $K1$ представлен в таблице~\ref{tab:pairwise_comparison}.
+\begin{table}[H]
+\centering
+\caption{Пример заполненной матрицы попарных сравнений}
+\label{tab:pairwise_comparison}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Критерий K1} & \textbf{A} & \textbf{ B} & \textbf{ C} \\
+\hline
+\textbf{A} & 1 & 4 & 6 \\
+\hline
+\textbf{B} & $1/4$ & 1 & $2$ \\
+\hline
+\textbf{C} & $1/6$ & $1/2$ & 1 \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection*{Вычисление вектора приоритетов}
 
