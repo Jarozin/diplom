@@ -154,11 +154,12 @@
 	\printbibliography[title=СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ]%
 }
 
-\newcommand{\makeappendix}{%
-	\chapter*{\hfill{\centering ПРИЛОЖЕНИЕ А}\hfill}%
-	\addcontentsline{toc}{chapter}{ПРИЛОЖЕНИЕ А}%
+\newcommand{\makeappendix}[1]{%
+	\chapter*{\hfill{\centering ПРИЛОЖЕНИЕ #1}\hfill}%
+	\addcontentsline{toc}{chapter}{ПРИЛОЖЕНИЕ #1}%
+	\renewcommand{\thelstlisting}{#1.\arabic{lstlisting}}%
+	\setcounter{lstlisting}{0}%
 }
-
 \usepackage{lastpage}
 \usepackage{etoolbox}
 \usepackage{totcount}
