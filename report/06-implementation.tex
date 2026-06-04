@@ -38,7 +38,7 @@
 
 \subsection{Разбиение на модули}
 
-Программная система реализована в виде набора модулей, каждый из которых отвечает за определённую функциональность.
+Программная система реализована в виде набора модулей, каждый из которых отвечает за определенную функциональность.
 
 \begin{itemize}
     \item \texttt{models.py} --- содержит классы данных, описывающие предметную область: \texttt{StateType} (типы состояний), \texttt{Object} (объекты и субъекты), \texttt{State} (состояния), \texttt{Action} (действия), \texttt{Label} (метки), \texttt{HistoryStep} (шаги истории).
@@ -47,7 +47,7 @@
 
     \item \texttt{labels.py} --- класс \texttt{LabelManager}, обеспечивающий загрузку меток из конфигурационного файла, сопоставление действий с метками по ключевым словам (с кэшированием) и предоставление рекомендаций через \texttt{AHPRecommendationRanker}.
 
-    \item \texttt{ahp\_method.py} --- класс \texttt{AHPMethod} (реализация полного МАИ для критериев: матрица попарных сравнений, вычисление весов через геометрическое среднее, проверка согласованности) и класс \texttt{AHPRecommendationRanker} (ранжирование рекомендаций на основе весов критериев с последующей нормализацией).
+    \item \texttt{ahp\_method.py} --- класс \texttt{AHPMethod} (реализация МАИ для критериев: матрица попарных сравнений, вычисление весов через геометрическое среднее, проверка согласованности) и класс \texttt{AHPRecommendationRanker} (ранжирование рекомендаций на основе весов критериев с последующей нормализацией).
 
     \item \texttt{visualization.py} --- функция \texttt{visualize\_graph}, строящая графическое представление графа инструкций с помощью Matplotlib и NetworkX.
 
@@ -55,7 +55,7 @@
 
     \item \texttt{debug\_mode.py} --- класс \texttt{DebugMode}, предоставляющий интерфейс для экспертной настройки весов и оценок, а также логирование изменений.
 
-    \item \texttt{ahp\_full.py} --- содержит два класса для исследовательских целей: \texttt{FullAHP} (полный МАИ с попарным сравнением всех альтернатив) и \texttt{HierarchicalAHP} (модифицированный МАИ с рекурсивным жадным отбором на основе группировки).
+    \item \texttt{ahp\_full.py} --- содержит два класса: \texttt{FullAHP} (классический МАИ с попарным сравнением всех альтернатив) и \texttt{HierarchicalAHP} (модифицированный МАИ с рекурсивным жадным отбором на основе группировки).
 
     \item \texttt{main.py} --- точка входа, организующая диалог с пользователем, выбор уровня экспертизы, загрузку графа и вызов соответствующих режимов.
 \end{itemize}
@@ -70,17 +70,17 @@
 
 Выходные данные: объект \texttt{LabelManager} с загруженным профилем и пересчитанными весами критериев.
 
-Исходный код функции \texttt{change\_profile} приведён в листинге~\ref{lst:change_profile}.
+Исходный код функции \texttt{change\_profile} приведен в листинге~\ref{lst:change_profile}.
 
-\begin{lstlisting}[frame=single, language=Python, caption={Фрагмент функции смены уровня экспертизы}, label={lst:change_profile}]
-    def change_profile(label_manager, choice):
-        profile_map = {'1':'new', '2':'experienced', '3':'expert'}
-        new_profile = profile_map.get(choice, 'experienced')
-        labels_cfg = os.path.join(BASE_DIR, "labels_config.json")
-        ahp_cfg = os.path.join(BASE_DIR, "ahp_criteria_config.json")
-        new_lm = LabelManager(labels_cfg, ahp_cfg, profile=new_profile)
-        return new_lm
-\end{lstlisting}
+% \begin{lstlisting}[frame=single, language=Python, caption={Фрагмент функции смены уровня экспертизы}, label={lst:change_profile}]
+%     def change_profile(label_manager, choice):
+%         profile_map = {'1':'new', '2':'experienced', '3':'expert'}
+%         new_profile = profile_map.get(choice, 'experienced')
+%         labels_cfg = os.path.join(BASE_DIR, "labels_config.json")
+%         ahp_cfg = os.path.join(BASE_DIR, "ahp_criteria_config.json")
+%         new_lm = LabelManager(labels_cfg, ahp_cfg, profile=new_profile)
+%         return new_lm
+% \end{lstlisting}
 
 \subsubsection{Функция загрузки графа инструкций}
 
@@ -92,39 +92,39 @@
 
 Выходные данные: объект класса \texttt{InstructionGraph}, заполненный состояниями, действиями и переходами из JSON-файла.
 
-Исходный код метода \texttt{from\_json} приведён в листинге~\ref{lst:loadgraph}.
+Исходный код метода \texttt{from\_json} приведен в листинге~\ref{lst:loadgraph}.
 
 
-\begin{lstlisting}[frame=single, language=Python, caption={Загрузка графа из JSON}, label={lst:loadgraph}]
-def from_json(cls, json_file: str, label_manager=None):
-    with open(json_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    graph = cls(data.get('name', 'InstructionGraph'), label_manager)
-    for obj_data in data.get('objects', []):
-        graph.add_object(Object(
-            name=obj_data['name'],
-            obj_type=obj_data.get('type', 'object'),
-            properties={}
-        ))
-    for state_data in data.get('states', []):
-        graph.add_state(State(
-            id=state_data['id'],
-            name=state_data['name'],
-            description=state_data.get('description', ''),
-            state_type=StateType.from_string(state_data.get('type', 'intermediate')),
-            objects_state=state_data.get('objects_state', {})
-        ))
-    for action_data in data.get('actions', []):
-        graph.add_action(Action(
-            id=action_data['id'],
-            name=action_data['name'],
-            description=action_data.get('description', ''),
-            required_objects=set(action_data.get('required_objects', []))
-        ))
-    for trans_data in data.get('transitions', []):
-        graph.add_transition(trans_data['from'], trans_data['action'], trans_data['to'])
-    return graph
-\end{lstlisting}
+% \begin{lstlisting}[frame=single, language=Python, caption={Загрузка графа из JSON}, label={lst:loadgraph}]
+% def from_json(cls, json_file: str, label_manager=None):
+%     with open(json_file, 'r', encoding='utf-8') as f:
+%         data = json.load(f)
+%     graph = cls(data.get('name', 'InstructionGraph'), label_manager)
+%     for obj_data in data.get('objects', []):
+%         graph.add_object(Object(
+%             name=obj_data['name'],
+%             obj_type=obj_data.get('type', 'object'),
+%             properties={}
+%         ))
+%     for state_data in data.get('states', []):
+%         graph.add_state(State(
+%             id=state_data['id'],
+%             name=state_data['name'],
+%             description=state_data.get('description', ''),
+%             state_type=StateType.from_string(state_data.get('type', 'intermediate')),
+%             objects_state=state_data.get('objects_state', {})
+%         ))
+%     for action_data in data.get('actions', []):
+%         graph.add_action(Action(
+%             id=action_data['id'],
+%             name=action_data['name'],
+%             description=action_data.get('description', ''),
+%             required_objects=set(action_data.get('required_objects', []))
+%         ))
+%     for trans_data in data.get('transitions', []):
+%         graph.add_transition(trans_data['from'], trans_data['action'], trans_data['to'])
+%     return graph
+% \end{lstlisting}
 
 \subsubsection{Функция выполнения действия в пошаговом режиме}
 
@@ -137,32 +137,32 @@ def from_json(cls, json_file: str, label_manager=None):
 
 Выходные данные: булево значение \texttt{True}, если действие успешно выполнено (переход в новое состояние), иначе \texttt{False}.
 
-Метод \texttt{execute\_action} класса \texttt{InstructionGraph} реализован в листинге~\ref{lst:execute}.
+Метод \texttt{execute\_action} класса \texttt{InstructionGraph} представлен в листинге~\ref{lst:execute}.
 
-\begin{lstlisting}[frame=single, language=Python, caption={Выполнение действия}, label={lst:execute}]
-def execute_action(self, action_id: str, recommendations=None, silent=False):
-    if self.current_state_id is None:
-        return False
-    transition_key = (self.current_state_id, action_id)
-    if transition_key not in self.transitions:
-        return False
-    next_state_id = self.transitions[transition_key]
-    old_state = self.current_state_id
-    old_state_name = self.states[old_state].name
-    self.current_state_id = next_state_id
-    new_state_name = self.states[self.current_state_id].name
-    history_step = HistoryStep(
-        from_state=old_state,
-        from_state_name=old_state_name,
-        action_id=action_id,
-        action_name=self.actions[action_id].name,
-        to_state=self.current_state_id,
-        to_state_name=new_state_name,
-        recommendations=recommendations or []
-    )
-    self.execution_history.append(history_step)
-    return True
-\end{lstlisting}
+% \begin{lstlisting}[frame=single, language=Python, caption={Выполнение действия}, label={lst:execute}]
+% def execute_action(self, action_id: str, recommendations=None, silent=False):
+%     if self.current_state_id is None:
+%         return False
+%     transition_key = (self.current_state_id, action_id)
+%     if transition_key not in self.transitions:
+%         return False
+%     next_state_id = self.transitions[transition_key]
+%     old_state = self.current_state_id
+%     old_state_name = self.states[old_state].name
+%     self.current_state_id = next_state_id
+%     new_state_name = self.states[self.current_state_id].name
+%     history_step = HistoryStep(
+%         from_state=old_state,
+%         from_state_name=old_state_name,
+%         action_id=action_id,
+%         action_name=self.actions[action_id].name,
+%         to_state=self.current_state_id,
+%         to_state_name=new_state_name,
+%         recommendations=recommendations or []
+%     )
+%     self.execution_history.append(history_step)
+%     return True
+% \end{lstlisting}
 
 \subsubsection{Функция ранжирования рекомендаций}
 
@@ -174,19 +174,19 @@ def execute_action(self, action_id: str, recommendations=None, silent=False):
 
 Выходные данные: список словарей, каждый из которых содержит поля \texttt{text} (текст рекомендации), \texttt{score} (нормализованная интегральная оценка) и \texttt{rank} (порядковый номер).
 
-Исходный код метода \texttt{rank\_recommendations} класса \texttt{AHPRecommendationRanker} приведён в листинге~\ref{lst:rank}.
+Исходный код метода \texttt{rank\_recommendations} класса \texttt{AHPRecommendationRanker} приведен в листинге~\ref{lst:rank}.
 
-\begin{lstlisting}[frame=single, language=Python,caption={Ранжирование рекомендаций}, label={lst:rank}]
-def rank_recommendations(self, recommendations, top_n=3):
-    raw_scores = [self.calculate_recommendation_score(rec.get('scores', {})) for rec in recommendations]
-    total = sum(raw_scores)
-    if total > 0:
-        norm_scores = [s / total for s in raw_scores]
-    else:
-        norm_scores = [1.0 / len(recommendations)] * len(recommendations)
-    ranked = sorted(zip(recommendations, norm_scores), key=lambda x: x[1], reverse=True)
-    return [{'text': rec['text'], 'score': score, 'rank': i+1} for i, (rec, score) in enumerate(ranked[:top_n])]
-\end{lstlisting}
+% \begin{lstlisting}[frame=single, language=Python,caption={Ранжирование рекомендаций}, label={lst:rank}]
+% def rank_recommendations(self, recommendations, top_n=3):
+%     raw_scores = [self.calculate_recommendation_score(rec.get('scores', {})) for rec in recommendations]
+%     total = sum(raw_scores)
+%     if total > 0:
+%         norm_scores = [s / total for s in raw_scores]
+%     else:
+%         norm_scores = [1.0 / len(recommendations)] * len(recommendations)
+%     ranked = sorted(zip(recommendations, norm_scores), key=lambda x: x[1], reverse=True)
+%     return [{'text': rec['text'], 'score': score, 'rank': i+1} for i, (rec, score) in enumerate(ranked[:top_n])]
+% \end{lstlisting}
 
 \subsubsection{Функция запуска аварийного сценария}
 
@@ -200,17 +200,17 @@ def rank_recommendations(self, recommendations, top_n=3):
 
 Реализация метода \texttt{run\_emergency\_scenario} класса \texttt{EmergencyHandler} представлена в листинге~\ref{lst:emergency}.
 
-\begin{lstlisting}[frame=single, language=Python, caption={Выполнение аварийного сценария}, label={lst:emergency}]
-def run_emergency_scenario(self, scenario_id, recursion_depth=0):
-    if recursion_depth >= self.max_depth:
-        return True
-    graph = self.load_emergency_graph(scenario_id)
-    if not graph:
-        return True
-    info = self.scenarios_config[scenario_id]
-    self._run_emergency_steps(graph, recursion_depth + 1)
-    return info.get('return_to_original', True)
-\end{lstlisting}
+% \begin{lstlisting}[frame=single, language=Python, caption={Выполнение аварийного сценария}, label={lst:emergency}]
+% def run_emergency_scenario(self, scenario_id, recursion_depth=0):
+%     if recursion_depth >= self.max_depth:
+%         return True
+%     graph = self.load_emergency_graph(scenario_id)
+%     if not graph:
+%         return True
+%     info = self.scenarios_config[scenario_id]
+%     self._run_emergency_steps(graph, recursion_depth + 1)
+%     return info.get('return_to_original', True)
+% \end{lstlisting}
 
 \subsubsection{Реализация модифицированного метода МАИ}
 
@@ -223,58 +223,37 @@ def run_emergency_scenario(self, scenario_id, recursion_depth=0):
 
 Выходные данные: список словарей, каждый из которых содержит поле \texttt{alternative}.
 
-Исходный код метода \texttt{\_collect\_leaves} класса \texttt{HierarchicalAHP} приведён в листинге~\ref{lst:collect}.
+Исходный код метода \texttt{\_collect\_leaves} класса \texttt{HierarchicalAHP} приведен в листинге~\ref{lst:collect}.
 
-\begin{lstlisting}[frame=single, language=Python,caption={Рекурсивный сбор лучших рекомендаций в групповом МАИ}, label={lst:collect}]
-def _collect_leaves(self, element: str, limit: int, depth: int = 0):
-    if element not in self.elements_data:
-        return [{'alternative': element, 'priority': 1.0}]
-    children = self.elements_data[element]
-    if not children:
-        return []
-    aggregated = self._get_aggregated_weights(element, children)
-    sorted_children = sorted(aggregated.items(), key=lambda x: x[1], reverse=True)
-    result = []
-    for child, _ in sorted_children:
-        if len(result) >= limit:
-            break
-        result.extend(self._collect_leaves(child, limit - len(result), depth + 1))
-    return result
-\end{lstlisting}
+% \begin{lstlisting}[frame=single, language=Python,caption={Рекурсивный сбор лучших рекомендаций в групповом МАИ}, label={lst:collect}]
+% def _collect_leaves(self, element: str, limit: int, depth: int = 0):
+%     if element not in self.elements_data:
+%         return [{'alternative': element, 'priority': 1.0}]
+%     children = self.elements_data[element]
+%     if not children:
+%         return []
+%     aggregated = self._get_aggregated_weights(element, children)
+%     sorted_children = sorted(aggregated.items(), key=lambda x: x[1], reverse=True)
+%     result = []
+%     for child, _ in sorted_children:
+%         if len(result) >= limit:
+%             break
+%         result.extend(self._collect_leaves(child, limit - len(result), depth + 1))
+%     return result
+% \end{lstlisting}
 
 \subsection{Формат используемых файлов}
 
 \subsubsection{Файл графа инструкции}
 
-Файл графового описания инструкции имеет следующую структуру:
+Пример файла графового описания инструкции  представлен на рисунке~\ref{fig:graph}.
 
-\begin{verbatim}
-{
-  "name": "Название",
-  "description": "Краткое описание",
-  "objects": [ {"name": "имя", "type": "object|subject"} ],
-  "states": [
-    {
-      "id": "s0",
-      "name": "Название состояния",
-      "description": "Описание",
-      "type": "initial|intermediate|final|error",
-      "objects_state": { "имя_объекта": { "свойство": значение } }
-    }
-  ],
-  "actions": [
-    {
-      "id": "a1",
-      "name": "Название действия",
-      "description": "Описание",
-      "required_objects": ["объект1", "объект2"]
-    }
-  ],
-  "transitions": [
-    { "from": "s0", "action": "a1", "to": "s1" }
-  ]
-}
-\end{verbatim}
+\begin{figure}[H]
+	\centering
+\includegraphics[width=0.9\linewidth]{inc/img/json1.png}
+	\caption{Пример файла графового описания инструкции}
+	\label{fig:graph}
+\end{figure}
 
 Поля \texttt{objects\_state} описывают свойства объектов в каждом состоянии.
 Значения свойств могут быть булевыми, числами или строками.
@@ -284,24 +263,14 @@ def _collect_leaves(self, element: str, limit: int, depth: int = 0):
 Файл \texttt{labels\_config.json} содержит массив меток, каждая из которых имеет имя, список ключевых слов и массив рекомендаций.
 Каждая рекомендация содержит текст и оценки по каждому критерию в виде словаря \texttt{scores}.
 
-Пример фрагмента файла:
+Пример фрагмента файла представлен на рисунке~\ref{fig:marks}.
 
-\begin{verbatim}
-{
-  "labels": [
-    {
-      "name": "наливание_воды",
-      "keywords": ["налить воду", "чайник"],
-      "recommendations": [
-        {
-          "text": "Используйте фильтрованную воду",
-          "scores": {"безопасность": 0.8, "полезность": 0.7}
-        }
-      ]
-    }
-  ]
-}
-\end{verbatim}
+\begin{figure}[H]
+	\centering
+\includegraphics[width=0.9\linewidth]{inc/img/json2.png}
+	\caption{Пример фрагмента файла меток}
+	\label{fig:marks}
+\end{figure}
 
 \subsubsection{Файл критериев МАИ с профилями экспертизы}
 
@@ -312,26 +281,22 @@ def _collect_leaves(self, element: str, limit: int, depth: int = 0):
 
 \subsubsection{Файл конфигурации аварийных сценариев}
 
-Файл \texttt{emergency\_scenarios.json} является словарем, где именем является название аварийного сценария, в нём содержится имя файла, в котором хранится аварийный сценарий, его описание, флаг возможности возврата и соответствующие сценарию метки.
+Файл \texttt{emergency\_scenarios.json} является словарем, где именем является название аварийного сценария, в нем содержится имя файла, в котором хранится аварийный сценарий, его описание, флаг возможности возврата и соответствующие сценарию метки.
 
-Пример фрагмента файла:
+Пример фрагмента файла представлен на рисунке \ref{figs:emergency}.
 
-\begin{verbatim}
-{
-  "spilled_water": {
-    "file": "spilled_water.json",
-    "description": "Пролил воду на пол",
-    "return_to_original": true,
-    "tags": ["вода", "пролил", "чайник"]
-  }
-}
-\end{verbatim}
+\begin{figure}[H]
+	\centering
+\includegraphics[width=0.6\linewidth]{inc/img/json3.png}
+	\caption{Пример фрагмента файла аварийного сценария}
+	\label{figs:emergency}
+\end{figure}
 
 \section{Описание взаимодействия пользователя с программой}
 
 \subsection*{Выбор уровня экспертизы}
 
-После запуска пользователю предлагается выбрать один из трёх уровней экспертизы.
+После запуска пользователю предлагается выбрать один из трех уровней экспертизы.
 
 \begin{enumerate}
     \item \textbf{Новичок} --- максимальный приоритет безопасности.
@@ -343,23 +308,16 @@ def _collect_leaves(self, element: str, limit: int, depth: int = 0):
 
 \subsection*{Главное меню}
 
-После загрузки графа отображается главное меню:
+После загрузки графа отображается главное меню, представленное на рисунке~\ref{fig:menu}.
+\begin{figure}[H]
+	\centering
+\includegraphics[width=0.8\linewidth]{inc/img/menu.png}
+	\caption{Главное меню программы}
+	\label{fig:menu}
+\end{figure}
 
-\begin{verbatim}
-   1. Пошаговый режим
-   2. Вывести информацию о графе
-   3. Визуализация
-   4. Все метки
-   5. Вывести веса критериев
-   6. Режим отладки
-   7. Загрузить другой граф
-   8. Сбросить состояние
-   9. Сменить уровень экспертизы
-   10. Сравнение методов МАИ на исследовательском файле
-   0. Выход
-\end{verbatim}
 
-Описание пунктов меню представлены далее.
+Описание пунктов меню представлено далее.
 
 \textbf{1. Пошаговый режим} --- запуск режима интерактивного пошагового выполнения инструкции.
 
@@ -461,7 +419,7 @@ def _collect_leaves(self, element: str, limit: int, depth: int = 0):
 
 Этот режим позволяет сравнить следующее:
 \begin{itemize}
-\item объём экспертной работы (количество попарных сравнений), требуемый для каждого метода;
+\item объем экспертной работы (количество попарных сравнений), требуемый для каждого метода;
 \item различия в ранжировании альтернатив, вызванные группировкой;
 \item эффективность модификации при большом количестве альтернатив.
 \end{itemize}

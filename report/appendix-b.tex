@@ -1,2 +1,113 @@
 \chapter*{\hfill{\centering ПРИЛОЖЕНИЕ Б}\hfill}%
 \addcontentsline{toc}{chapter}{ПРИЛОЖЕНИЕ Б}%
+
+\begin{lstlisting}[frame=single, language=Python, caption={Фрагмент функции смены уровня экспертизы}, label={lst:change_profile}]
+    def change_profile(label_manager, choice):
+        profile_map = {'1':'new', '2':'experienced', '3':'expert'}
+        new_profile = profile_map.get(choice, 'experienced')
+        labels_cfg = os.path.join(BASE_DIR, "labels_config.json")
+        ahp_cfg = os.path.join(BASE_DIR, "ahp_criteria_config.json")
+        new_lm = LabelManager(labels_cfg, ahp_cfg, profile=new_profile)
+        return new_lm
+\end{lstlisting}
+
+
+\begin{lstlisting}[frame=single, language=Python, caption={Загрузка графа из JSON}, label={lst:loadgraph}]
+def from_json(cls, json_file: str, label_manager=None):
+    with open(json_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    graph = cls(data.get('name', 'InstructionGraph'), label_manager)
+    for obj_data in data.get('objects', []):
+        graph.add_object(Object(
+            name=obj_data['name'],
+            obj_type=obj_data.get('type', 'object'),
+            properties={}
+        ))
+    for state_data in data.get('states', []):
+        graph.add_state(State(
+            id=state_data['id'],
+            name=state_data['name'],
+            description=state_data.get('description', ''),
+            state_type=StateType.from_string(state_data.
+                get('type', 'intermediate')),
+            objects_state=state_data.get('objects_state', {})
+        ))
+    for action_data in data.get('actions', []):
+        graph.add_action(Action(
+            id=action_data['id'],
+            name=action_data['name'],
+            description=action_data.get('description', ''),
+            required_objects=set(action_data.
+                get('required_objects', []))
+        ))
+    for trans_data in data.get('transitions', []):
+        graph.add_transition(trans_data['from'], trans_data['action'], trans_data['to'])
+    return graph
+\end{lstlisting}
+
+
+\begin{lstlisting}[frame=single, language=Python, caption={Выполнение действия}, label={lst:execute}]
+def execute_action(self, action_id: str, recommendations=None, silent=False):
+    if self.current_state_id is None:
+        return False
+    transition_key = (self.current_state_id, action_id)
+    if transition_key not in self.transitions:
+        return False
+    next_state_id = self.transitions[transition_key]
+    old_state = self.current_state_id
+    old_state_name = self.states[old_state].name
+    self.current_state_id = next_state_id
+    new_state_name = self.states[self.current_state_id].name
+    history_step = HistoryStep(
+        from_state=old_state,
+        from_state_name=old_state_name,
+        action_id=action_id,
+        action_name=self.actions[action_id].name,
+        to_state=self.current_state_id,
+        to_state_name=new_state_name,
+        recommendations=recommendations or []
+    )
+    self.execution_history.append(history_step)
+    return True
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single, language=Python,caption={Ранжирование рекомендаций}, label={lst:rank}]
+def rank_recommendations(self, recommendations, top_n=3):
+    raw_scores = [self.calculate_recommendation_score(rec.get('scores', {})) for rec in recommendations]
+    total = sum(raw_scores)
+    if total > 0:
+        norm_scores = [s / total for s in raw_scores]
+    else:
+        norm_scores = [1.0 / len(recommendations)] * len(recommendations)
+    ranked = sorted(zip(recommendations, norm_scores), key=lambda x: x[1], reverse=True)
+    return [{'text': rec['text'], 'score': score, 'rank': i+1} for i, (rec, score) in enumerate(ranked[:top_n])]
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single, language=Python, caption={Выполнение аварийного сценария}, label={lst:emergency}]
+def run_emergency_scenario(self, scenario_id, recursion_depth=0):
+    if recursion_depth >= self.max_depth:
+        return True
+    graph = self.load_emergency_graph(scenario_id)
+    if not graph:
+        return True
+    info = self.scenarios_config[scenario_id]
+    self._run_emergency_steps(graph, recursion_depth + 1)
+    return info.get('return_to_original', True)
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single, language=Python,caption={Рекурсивный отбор лучших рекомендаций в групповом МАИ}, label={lst:collect}]
+def _collect_leaves(self, element: str, limit: int, depth: int = 0):
+    if element not in self.elements_data:
+        return [{'alternative': element, 'priority': 1.0}]
+    children = self.elements_data[element]
+    if not children:
+        return []
+    aggregated = self._get_aggregated_weights(element, children)
+    sorted_children = sorted(aggregated.items(), key=lambda x: x[1], reverse=True)
+    result = []
+    for child, _ in sorted_children:
+        if len(result) >= limit:
+            break
+        result.extend(self._collect_leaves(child, limit - len(result), depth + 1))
+    return result
+\end{lstlisting}
