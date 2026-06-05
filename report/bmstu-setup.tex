@@ -27,7 +27,7 @@
 \makeatother
 \usepackage{titlesec}
 \titleformat{\chapter}[block]{\hspace{\parindent}\large\bfseries}{\thechapter}{0.5em}{\large\bfseries\raggedright}
-\titleformat{name=\chapter,numberless}[block]{\hspace{\parindent}}{}{0pt}{\large\bfseries\centering}
+\titleformat{name=\chapter,numberless}[block]{}{}{0pt}{\large\bfseries\centering}
 \titleformat{\section}[block]{\hspace{\parindent}\large\bfseries}{\thesection}{0.5em}{\large\bfseries\raggedright}
 \titleformat{\subsection}[block]{\hspace{\parindent}\large\bfseries}{\thesubsection}{0.5em}{\large\bfseries\raggedright}
 \titleformat{\subsubsection}[block]{\hspace{\parindent}\large\bfseries}{\thesubsection}{0.5em}{\large\bfseries\raggedright}
@@ -43,6 +43,7 @@
     \@dottedtocline{0}{0pt}{1.5em}{\bfseries #1}{\bfseries #2}
 \fi
 }
+
 \makeatother
 
 \usepackage{xcolor}
