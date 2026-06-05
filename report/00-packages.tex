@@ -29,7 +29,7 @@
 % Настройка полей
 \usepackage{geometry}
 \geometry{left=30mm}
-\geometry{right=10mm}
+\geometry{right=15mm}
 \geometry{top=20mm}
 \geometry{bottom=20mm}
 
@@ -74,6 +74,13 @@
 %\titlespacing{\section}{12.5mm}{10pt}{10pt}
 %\titlespacing{\subsection}{12.5mm}{10pt}{10pt}
 %\titlespacing{\subsubsection}{12.5mm}{10pt}{10pt}
+
+\let\oldsum\sum
+\renewcommand{\sum}{\oldsum\limits}
+
+\let\oldprod\prod
+\renewcommand{\prod}{\oldprod\limits}
+
 
 % Команда создания рисунка
 \newcommand{\includesvgimage}[5]
