@@ -35,6 +35,9 @@ def from_json(cls, json_file: str, label_manager=None):
             id=action_data['id'],
             name=action_data['name'],
             description=action_data.get('description', ''),
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single, language=Python, caption={Загрузка графа из JSON (продолжение)}, label={lst:loadgraph2}]
             required_objects=set(action_data.
                 get('required_objects', []))
         ))
@@ -74,7 +77,9 @@ def rank_recommendations(self, recommendations, top_n=3):
     raw_scores = [self.calculate_recommendation_score(rec.get('scores', {})) for rec in recommendations]
     total = sum(raw_scores)
     if total > 0:
-        norm_scores = [s / total for s in raw_scores]
+\end{lstlisting}
+\begin{lstlisting}[frame=single, language=Python,caption={Ранжирование рекомендаций (продолжение)}, label={lst:rank}]
+    norm_scores = [s / total for s in raw_scores]
     else:
         norm_scores = [1.0 / len(recommendations)] * len(recommendations)
     ranked = sorted(zip(recommendations, norm_scores), key=lambda x: x[1], reverse=True)
