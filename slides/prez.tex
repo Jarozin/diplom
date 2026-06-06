@@ -9,8 +9,20 @@
 \usepackage{caption}
 \setbeamercolor{background canvas}{bg=white}
 \setbeamercolor{normal text}{fg=black}
-\setbeamertemplate{footline}[frame number]
-\addtobeamertemplate{footline}{\ifnum\value{framenumber}=1\else\hspace*{\fill}\fi}{}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footline}%
+      \ifnum\value{framenumber}=1
+        % На первом слайде ничего не показываем
+        \hspace*{\fill}
+      \else
+        \hspace*{\fill}\insertframenumber{} / \inserttotalframenumber\hspace{0.3cm}\vspace{0.1cm}
+      \fi
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
 \definecolor{LightCyan}{rgb}{0.87, 0.87, 0.87}
 \setbeamercolor{section in toc}{fg=black}
 \setbeamercolor{subsection in toc}{fg=black}
@@ -40,7 +52,7 @@
 %    TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\begin{frame}[noframenumbering,plain]
+\begin{frame}[plain]
     \begin{columns}[T]
         \begin{column}{0.2\textwidth}
             \includegraphics[width=2.5cm]{assets/b_logo.png}
@@ -103,7 +115,6 @@
 %    ЦЕЛЬ И ЗАДАЧИ
 %----------------------------------------------------------------------------------------
 
-\setcounter{framenumber}{1}
 \begin{frame}{\centering Цель и задачи работы}
     \textbf{Цель работы}~---~разработка метода поддержки принятия решений при выполнении пошаговой инструкции, заданной в графовом формате.
     
